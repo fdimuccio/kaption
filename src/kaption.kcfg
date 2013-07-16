@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+    <kcfgfile name="kaptionrc" />
+    <group name="general">
+	  <entry name="LastSaveLocationUrl" type="String">
+		<label>Last save location url</label>
+		<hidden>true</hidden>
+	  </entry>
+	  <entry name="DontAskSaveLocation" type="Bool">
+	<label>Should not ask the user where to save the image each time, will be used the default save location</label>
+	<default>false</default>
+      </entry>
+      <entry name="DefaultSaveLocationUrl" type="String">
+	<label>Url to the default image save location</label>
+	<default></default>
+      </entry>
+    </group>
+    <group name="ftp">
+      <entry name="Server" type="String">
+	  <label>Server address</label>
+      </entry>
+      <entry name="Type" type="Enum">
+	  <choices>
+	      <choice name="FTP" />
+	      <choice name="SFTP" />
+	  </choices>
+	  <label>Server type</label>
+	  <default>FTP</default>
+      </entry>
+      <entry name="Port" type="UInt">
+	  <label>Server port</label>
+	  <default>21</default>
+      </entry>
+      <entry name="Directory" type="String">
+	  <label>Remote directory path</label>
+	  <default>/</default>
+      </entry>
+      <entry name="Username" type="String">
+	  <label>Username</label>
+      </entry>
+      <entry name="Password" type="Password">
+	  <label>Password</label>
+      </entry>
+      <entry name="UseClipboard" type="Bool">
+	<label>Should "ClipboardContents" be copied into the clipboard when an image has been uploaded succesfully</label>
+	<default>false</default>
+      </entry>
+      <entry name="ClipboardContents" type="String">
+	<label>Clipboard Contents</label>
+      </entry>
+    </group>
+</kcfg>

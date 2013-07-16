@@ -1,0 +1,15 @@
+
+-- The following OPTIONAL packages have been found:
+
+ * Threads
+ * OpenSSL
+ * Perl
+
+-- The following REQUIRED packages have been found:
+
+ * X11
+ * Qt4
+ * Automoc4
+ * Phonon (required version >= 4.3.80)
+ * KDE4Internal
+ * KDE4

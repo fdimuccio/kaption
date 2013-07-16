@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Terminal=false
+Name=Kaption
+Comment=Screen capture and editor
+Type=Application
+Icon=ksnapshot
+Exec=kaption
+Categories=Qt;KDE;Graphics;

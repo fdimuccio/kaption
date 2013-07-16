@@ -1,0 +1,11 @@
+TODO
+====
+These are todos collected in no certain order:
+  * Be able to capture a window without rectangle selection
+  * Be able to add a shadow to the final image when saved/uploaded
+  * Be able to change (on fly or through configuration) shadow settings
+  * The actual icon is from Ksnapshot :) Maybe would be better to use a proper icon...
+  * Icons, icons and icons...
+  * Be able to share the image using different storage services (Dropbox, Amazon S3...)
+  * Be able to change the font (color, family and size) of the text element
+  * New graphic elements

@@ -1,0 +1,27 @@
+[Global]
+IconName=ksnapshot
+Comment=Kaption
+
+[Context/imagesave]
+Name=Image save operation
+
+[Event/imagesaved]
+Name=Image saved
+Comment=Image saved succesfully
+Action=Popup
+Context=imagesave
+
+[Context/upload]
+Name=Upload operation
+
+[Event/uploadok]
+Name=Upload finished
+Comment=Screenshot uploaded successfully
+Action=Popup
+Context=upload
+
+[Event/uploaderror]
+Name=Upload error
+Comment=Screenshot upload error
+Action=Popup
+Context=upload

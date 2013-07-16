@@ -1,0 +1,534 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# sw1976de <sw@pardususer.de>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: kaption\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-07 18:14+0200\n"
+"PO-Revision-Date: 2011-04-24 22:10+0000\n"
+"Last-Translator: sw1976de <sw@pardususer.de>\n"
+"Language-Team: German (http://www.transifex.net/projects/p/kaption/team/"
+"de/)\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: src/grabber.cpp:323
+msgid ""
+"Click on a window to select it or click and drag to grab a screen selection"
+msgstr ""
+"Klicke zur Auswahl auf ein Fenster, oder klicke und ziehe für eine Auswahl"
+
+#: src/grabber.cpp:325
+msgid "Press Enter key when done"
+msgstr "Zur Bestätigung 'Enter' drücken"
+
+#: src/grabber.cpp:327
+msgid "Press Esc key to exit"
+msgstr "Abbrechen mit 'Esc'"
+
+#: src/graphic/snapshotcanvas.cpp:38
+msgid "Move on top"
+msgstr ""
+
+#: src/graphic/snapshotcanvas.cpp:39
+msgid "Move on bottom"
+msgstr ""
+
+#: src/kaptionapplication.cpp:61
+msgid "Capture desktop"
+msgstr ""
+
+#: src/kaptionapplication.cpp:138
+msgid "<b>%1</b> is not a valid image file"
+msgstr ""
+
+#: src/kaptionapplication.cpp:141
+msgid "Could not read <b>%1</b>: %2"
+msgstr ""
+
+#: src/main.cpp:15
+msgid "Kaption"
+msgstr "Kaption"
+
+#: src/main.cpp:17
+msgid "Screenshot grabber and editor for KDE"
+msgstr "Screenshot-Tool und Editor für KDE"
+
+#: src/main.cpp:19
+msgid "Copyright (C) 2011 Francesco Di Muccio"
+msgstr "Copyright (C) 2011 Francesco Di Muccio"
+
+#: src/main.cpp:20
+msgid "Kaption is a screenshot utility similar to Skitch or Jing"
+msgstr "Kaption ist ein Screenshot Werkzeug ähnlich zu Skitch oder Jing"
+
+#: src/main.cpp:24
+msgid "Francesco Di Muccio"
+msgstr "Francesco Di Muccio"
+
+#: src/main.cpp:25
+msgid "Author"
+msgstr "Autor"
+
+#: src/main.cpp:34
+msgid "Captures the desktop"
+msgstr ""
+
+#: src/numberselector.cpp:13
+msgid "Edit item number"
+msgstr ""
+
+#: src/saveimagedirselectdialog.cpp:25
+msgid "Don't ask me again"
+msgstr ""
+
+#: src/saveimagedirselectdialog.cpp:28
+msgid ""
+"This option will set the choosen directoy as default, next time you will not "
+"be prompted where to save.\n"
+"This behavior can be changed from the settings panel"
+msgstr ""
+
+#: src/settings/kaptionsettingsdialog.cpp:20
+msgid "General"
+msgstr ""
+
+#: src/settings/kaptionsettingsdialog.cpp:22
+#, fuzzy
+msgid "Configure general settings"
+msgstr "Verbindungskonfiguration"
+
+#: src/settings/kaptionsettingsdialog.cpp:25
+#, fuzzy
+msgid "FTP upload"
+msgstr "Hochladen"
+
+#: src/settings/kaptionsettingsdialog.cpp:27
+#, fuzzy
+msgid "Configure FTP upload"
+msgstr "Upload konfigurieren"
+
+#: src/snapshotpreview.cpp:162
+msgid "Invalid location"
+msgstr ""
+
+#: src/snapshotpreview.cpp:165
+msgid "No location has been choosen, check your settings."
+msgstr ""
+
+#: src/snapshotpreview.cpp:167
+msgid "Choosen location is invalid: <br>%1<br><i>Reason: <b>%2</b>.</i>"
+msgstr ""
+
+#: src/snapshotpreview.cpp:179
+msgid "File Exists"
+msgstr "Datei exisitert"
+
+#: src/snapshotpreview.cpp:180
+msgid "<qt>Do you really want to overwrite <b>%1</b>?</qt>"
+msgstr "<qt>Wollen Sie wirklich <b>%1</b> überschreiben?</qt>"
+
+#: src/snapshotpreview.cpp:181
+msgid "Overwrite"
+msgstr "Überschreibe"
+
+#: src/snapshotpreview.cpp:217 src/snapshotpreview.cpp:299
+msgid "Unable to Save Image"
+msgstr "Kann Bild nicht speichern"
+
+#: src/snapshotpreview.cpp:218
+#, fuzzy
+msgid ""
+"Kaption was unable to save the image to<br>%1<br><i>Reason: <b>%2</b>.</i>"
+msgstr ""
+"Konnte das Bild nicht speichern nach\n"
+"%1."
+
+#: src/snapshotpreview.cpp:228
+msgid "Image saved successfully into %1"
+msgstr ""
+
+#: src/snapshotpreview.cpp:248
+msgid ""
+"To upload the screenshot you must configure a connection.\n"
+"Do it now?"
+msgstr ""
+"Um den Screenshot hochladen zu können, müssen Sie eine Verbindung "
+"konfigurieren.\n"
+"Jetzt konfigurieren?"
+
+#: src/snapshotpreview.cpp:250
+msgid "Missing connection configuration"
+msgstr "Verbindungskonfiguration nicht vorhanden"
+
+#: src/snapshotpreview.cpp:289
+msgid "Upload progress"
+msgstr "Speicherfortschritt"
+
+#: src/snapshotpreview.cpp:293
+msgid "Uploading to %1"
+msgstr "Lade zu %1"
+
+#: src/snapshotpreview.cpp:300
+#, fuzzy
+msgid "Kaption was unable to upload the image, reason: <b>%1</b>"
+msgstr ""
+"Konnte das Bild nicht speichern nach\n"
+"%1."
+
+#: src/snapshotpreview.cpp:333
+msgid "Upload canceled"
+msgstr "Hochladen abgebrochen"
+
+#: src/snapshotpreview.cpp:358
+msgid "Image uploaded"
+msgstr "Bild hochgeladen"
+
+#: src/snapshotpreview.cpp:368
+msgid "<br><br>Clipboard content:<br>%1<br>"
+msgstr "<br><br>Inhalt Zwischenablage:<br>%1<br>"
+
+#: src/snapshotpreview.cpp:497
+#, fuzzy
+msgid "Save image"
+msgstr "Kann Bild nicht speichern"
+
+#: src/snapshotpreview.cpp:498
+msgid "The current image is unsaved, do you want to save or discard it?"
+msgstr ""
+
+#: src/trayicon.cpp:22
+msgid "Left click to start grabbing the screen"
+msgstr "Linksklick um den Bildschirminhalt auszuwählen"
+
+#. i18n: file: src/kaption.kcfg:9
+#. i18n: ectx: label, entry (RememberLastSaveLocation), group (general)
+#: rc.cpp:3
+msgid "Should remember last save location"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:13
+#. i18n: ectx: label, entry (LastSaveLocationUrl), group (general)
+#: rc.cpp:6
+msgid "Last save location url"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:17
+#. i18n: ectx: label, entry (DontAskSaveLocation), group (general)
+#: rc.cpp:9
+msgid ""
+"Should not ask the user where to save the image each time, will be used the "
+"default save location"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:21
+#. i18n: ectx: label, entry (DefaultSaveLocationUrl), group (general)
+#: rc.cpp:12
+msgid "Url to the default image save location"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:27
+#. i18n: ectx: label, entry (Server), group (ftp)
+#: rc.cpp:15
+msgid "Server address"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:34
+#. i18n: ectx: label, entry (Type), group (ftp)
+#: rc.cpp:18
+#, fuzzy
+msgid "Server type"
+msgstr "Server:"
+
+#. i18n: file: src/kaption.kcfg:38
+#. i18n: ectx: label, entry (Port), group (ftp)
+#: rc.cpp:21
+#, fuzzy
+msgid "Server port"
+msgstr "Server:"
+
+#. i18n: file: src/kaption.kcfg:42
+#. i18n: ectx: label, entry (Directory), group (ftp)
+#: rc.cpp:24
+msgid "Remote directory path"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:46
+#. i18n: ectx: label, entry (Username), group (ftp)
+#: rc.cpp:27
+#, fuzzy
+msgid "Username"
+msgstr "Benutzername:"
+
+#. i18n: file: src/kaption.kcfg:49
+#. i18n: ectx: label, entry (Password), group (ftp)
+#: rc.cpp:30
+#, fuzzy
+msgid "Password"
+msgstr "Paßwort:"
+
+#. i18n: file: src/kaption.kcfg:52
+#. i18n: ectx: label, entry (UseClipboard), group (ftp)
+#: rc.cpp:33
+msgid ""
+"Should \"ClipboardContents\" be copied into the clipboard when an image has "
+"been uploaded succesfully"
+msgstr ""
+
+#. i18n: file: src/kaption.kcfg:56
+#. i18n: ectx: label, entry (ClipboardContents), group (ftp)
+#: rc.cpp:36
+msgid "Clipboard Contents"
+msgstr "Inhalt der Zwischenablage"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:20
+#. i18n: ectx: property (windowTitle), widget (QWidget, FtpUploadSettingsPage)
+#. i18n: file: src/settings/generalsettingspage.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, GeneralSettingsPage)
+#: rc.cpp:39 rc.cpp:81
+msgid "Form"
+msgstr "Form"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:32
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: rc.cpp:42
+msgid "Connection settings"
+msgstr "Verbindungskonfiguration"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:67
+#. i18n: ectx: property (text), widget (QLabel, label_Server)
+#: rc.cpp:45
+msgid "Server:"
+msgstr "Server:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:74
+#. i18n: ectx: property (text), widget (QLabel, label_Directory)
+#: rc.cpp:48
+msgid "Directory:"
+msgstr "Verzeichnis:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:81
+#. i18n: ectx: property (text), widget (QLabel, label_Username)
+#: rc.cpp:51
+msgid "Username:"
+msgstr "Benutzername:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:88
+#. i18n: ectx: property (text), widget (QLabel, label_Password)
+#: rc.cpp:54
+msgid "Password:"
+msgstr "Paßwort:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:102
+#. i18n: ectx: property (text), widget (QLabel, label_Type)
+#: rc.cpp:57
+msgid "Type:"
+msgstr "Typ:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:121
+#. i18n: ectx: property (text), item, widget (QComboBox, kcfg_Type)
+#: rc.cpp:60
+msgid "SFTP"
+msgstr "SFTP"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:129
+#. i18n: ectx: property (text), widget (QLabel, label_Port)
+#: rc.cpp:63
+msgid "Port:"
+msgstr "Port:"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:148
+#. i18n: ectx: property (title), widget (QGroupBox, kcfg_UseClipboard)
+#: rc.cpp:66
+msgid "Clipboard settings"
+msgstr "Einstellung der Zwischenablage"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:168
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: rc.cpp:70
+#, no-c-format
+msgid ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Kaption will copy into the "
+"clipboard the following code when your upload is done. </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">The following tag is "
+"populated by Kaption to support you in writing custom code: <span style=\" "
+"font-style:italic;\">%filename</span></p></body></html>"
+msgstr ""
+"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/"
+"REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css"
+"\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Bitstream Vera Sans'; font-"
+"size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Kaption wird nach dem "
+"hochladen den folgenden String in die Zwischenablage kopieren. </p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-"
+"right:0px; -qt-block-indent:0; text-indent:0px;\">Der folgendene Abschnitt "
+"wird von Kaption erstellt, um die Erstellung von eigenem Code zu "
+"unterstützen: <span style=\" font-style:italic;\">%filename</span></p></"
+"body></html>"
+
+#. i18n: file: src/settings/ftpuploadsettingspage.ui:177
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:78
+msgid "Custom return text:"
+msgstr "Eigener Text:"
+
+#. i18n: file: src/settings/generalsettingspage.ui:20
+#. i18n: ectx: property (title), widget (QGroupBox, SaveSettingsGrp)
+#: rc.cpp:84
+#, fuzzy
+msgid "Save settings"
+msgstr "Einstellung der Zwischenablage"
+
+#. i18n: file: src/settings/generalsettingspage.ui:26
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_RememberLastSaveLocation)
+#: rc.cpp:87
+msgid "Remember last save location"
+msgstr ""
+
+#. i18n: file: src/settings/generalsettingspage.ui:33
+#. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_DontAskSaveLocation)
+#: rc.cpp:90
+msgid ""
+"If checked, the image will be saved in the location specified below without "
+"prompt"
+msgstr ""
+
+#. i18n: file: src/settings/generalsettingspage.ui:36
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_DontAskSaveLocation)
+#: rc.cpp:93
+msgid "Don't ask where to save the image (use a default save location)"
+msgstr ""
+
+#. i18n: file: src/settings/generalsettingspage.ui:45
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:96
+msgid "Default location:"
+msgstr ""
+
+#. i18n: file: src/snapshotpreview.ui:14
+#. i18n: ectx: property (windowTitle), widget (QFrame, SnapshotPreview)
+#: rc.cpp:99
+msgid "Kaption - Editor"
+msgstr "Kaption - Editor"
+
+#. i18n: file: src/snapshotpreview.ui:41
+#. i18n: ectx: property (toolTip), widget (QPushButton, arrowBtn)
+#: rc.cpp:102
+msgid "Draw an arrow"
+msgstr "Zeichne einen Pfeil"
+
+#. i18n: file: src/snapshotpreview.ui:64
+#. i18n: ectx: property (toolTip), widget (QPushButton, boxBtn)
+#: rc.cpp:105
+msgid "Draw a box"
+msgstr "Zeichne ein Viereck"
+
+#. i18n: file: src/snapshotpreview.ui:87
+#. i18n: ectx: property (toolTip), widget (QPushButton, ellipseBtn)
+#: rc.cpp:108
+msgid "Draw an ellipse"
+msgstr "Zeichne eine Ellipse"
+
+#. i18n: file: src/snapshotpreview.ui:110
+#. i18n: ectx: property (toolTip), widget (QPushButton, textBtn)
+#: rc.cpp:111
+msgid "Write a text"
+msgstr "Schreibe eien Text"
+
+#. i18n: file: src/snapshotpreview.ui:133
+#. i18n: ectx: property (toolTip), widget (QPushButton, numberedBtn)
+#: rc.cpp:114
+msgid "Draw a number in a circle"
+msgstr ""
+
+#. i18n: file: src/snapshotpreview.ui:214
+#. i18n: ectx: property (text), widget (QLabel, filenameLabel)
+#: rc.cpp:117
+msgid "Name:"
+msgstr ""
+
+#. i18n: file: src/snapshotpreview.ui:233
+#. i18n: ectx: property (toolTip), widget (KLineEdit, filenameLineEdit)
+#: rc.cpp:120
+#, fuzzy
+msgid "Image filename"
+msgstr "Bild hochgeladen"
+
+#. i18n: file: src/snapshotpreview.ui:270
+#. i18n: ectx: property (text), widget (QPushButton, uploadBtn)
+#: rc.cpp:123
+msgid "Upload"
+msgstr "Hochladen"
+
+#. i18n: file: src/snapshotpreview.ui:277
+#. i18n: ectx: property (text), widget (QPushButton, saveBtn)
+#: rc.cpp:126
+msgid "Save"
+msgstr "Speichern"
+
+#. i18n: file: src/snapshotpreview.ui:284
+#. i18n: ectx: property (text), widget (QPushButton, cancelBtn)
+#: rc.cpp:129
+msgid "Close"
+msgstr "Schließen"
+
+#. i18n: file: src/snapshotpreview.ui:317
+#. i18n: ectx: property (toolTip), widget (KColorButton, colorBtn)
+#: rc.cpp:132
+#, fuzzy
+msgid "Edit item color"
+msgstr "Farbe"
+
+#. i18n: file: src/snapshotpreview.ui:341
+#. i18n: ectx: property (toolTip), widget (QPushButton, formatTextBtn)
+#: rc.cpp:135
+msgid "Edit item font"
+msgstr ""
+
+#. i18n: file: src/snapshotpreview.ui:361
+#. i18n: ectx: property (toolTip), widget (QSlider, widthSlider)
+#: rc.cpp:138
+#, fuzzy
+msgid "Edit item size"
+msgstr "Größe"
+
+#: rc.cpp:139
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Stefan Wilhelm"
+
+#: rc.cpp:140
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "sw@pardususer.de"
+
+#~ msgid "Text font"
+#~ msgstr "Schriftart"
+
+#~ msgid "Save As"
+#~ msgstr "Speichern als"
+
+#~ msgid "Use clipboard contents"
+#~ msgstr "Verwende Inhalt der Zwischenablage"
+
+#~ msgid "Use clipboard"
+#~ msgstr "Zwischenablage verwenden"

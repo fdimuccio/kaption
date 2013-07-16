@@ -1,0 +1,6 @@
+File=kaption.kcfg
+ClassName=Settings
+Singleton=true
+Mutators=true
+GlobalEnums=false
+UseEnumTypes=true

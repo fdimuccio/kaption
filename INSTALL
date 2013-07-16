@@ -1,0 +1,10 @@
+Kaption install HOWTO
+=====================
+After unpacking the source code, run: 
+
+$ cmake CMakeLists.txt -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix`
+$ make
+$ sudo make install
+
+WARNING: Do not forget the -D option in cmake, other way some files will not be installed
+correctly and you will miss notification and translations

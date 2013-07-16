@@ -1,0 +1,44 @@
+Kaption Revision History
+========================
+
+2011-04-15 Version 0.0.9
+ * New editor features:
+    * Can change item color
+    * Can change item size
+    * Can change text item font
+    * Item copy and paste through keyboard shortcuts
+ * Added handles to change the size of the grabbed region
+ * Added few icons
+ * Code improvements
+
+2011-03-29: Version 0.0.7
+ * Added ellipse
+ * Added a tail handle to the arrow item
+ * Editor window is now resizable (though there is graphic glitch when scrollbars are visible, white bars may appear at the bottom and right side of the image editor, but dont worry, they will not be present in the final image, will fix soon)
+ * Added Russian translation (thanks to Alexey Ivanov)
+ * Added Ukranian translation (thanks to Yuri Chornoivan)
+ * Added German translation
+ * Updated Czech translation
+ * Updated Italan translation
+
+2011-03-16: Version 0.0.6
+ * Added the possibility to grab window with or without frameborders
+ * Added the possibility to move graphic items with arrow keys
+ * Added Czech translation (thanks to Pavel Fric)
+ * Added Italian translation (made by me)
+
+2011-03-11: Version 0.0.5
+ * Added FTP/SFTP Upload feature with clipboard support
+ * Added the possibility to move the selection box with arrow keys
+ * Improved arrow shape
+ * Improved graphic items shadow (thanks to Donato Marrazzo for the nice shadow settings)
+ * First support to localization
+ * Some code improvement (now Kaption works also in Gnome)
+
+2011-02-28: Version 0.0.2
+ * Added an info text on the top left corner when grabbing
+ * Removed a border appearing in the final image (when saved)
+ * Added an Exec key in the .desktop (thanks to Sam Rog to pointing it out)
+
+2011-02-28: Version 0.0.1
+ * First public release with very basic capabilities
