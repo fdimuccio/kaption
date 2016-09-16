@@ -310,6 +310,7 @@ void SnapshotPreview::slotCopy()
 {
     QPixmap p = getFinalPixmap();
     m_clipboard->setPixmap(p);
+    m_screenSaved = true;
 }
 
 void SnapshotPreview::slotPrintUploadInfo(KJob *job, const QString &plain)
