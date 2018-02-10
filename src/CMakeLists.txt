@@ -1,14 +1,8 @@
 add_subdirectory(icons)
 
 include_directories(
-  ${CMAKE_SOURCE_DIR}
-  ${CMAKE_BINARY_DIR}
-#   ${QT_QTNETWORK_INCLUDE_DIR}
-#   ${QT_QTDBUS_INCLUDE_DIR}
-#   ${QT_QTSQL_INCLUDE_DIR}
-#   ${QT_QTWEBKIT_INCLUDE_DIR}
-  ${KDE4_INCLUDES}
-#   ${SOPRANO_INCLUDE_DIR}
+    ${CMAKE_SOURCE_DIR}
+    ${CMAKE_BINARY_DIR}
     graphic/
     graphic/items
     configdialog/
@@ -47,41 +41,25 @@ set(KAPTION_SRCS
     scale.cpp
 )
 
-# Compile UI files
-kde4_add_ui_files(KAPTION_SRCS
-    snapshotpreview.ui
-    settings/generalsettingspage.ui
-    settings/ftpuploadsettingspage.ui
-)
-
-# Compile KCFG files
-kde4_add_kcfg_files(KAPTION_SRCS settings.kcfgc)
+## Compile KCFG files
+kconfig_add_kcfg_files(KAPTION_SRCS settings.kcfgc)
 
 # Create the executable
-kde4_add_executable(kaption ${KAPTION_SRCS})
+add_executable(kaption ${KAPTION_SRCS})
 
 # Link against the needed libraries
 target_link_libraries(kaption
-#   ${QT_QTNETWORK_LIBRARY}
-#   ${QT_QTDBUS_LIBRARY}
-#   ${QT_QTSQL_LIBRARY}
-#   ${QT_QTWEBKIT_LIBRARY}
-  ${KDE4_KDEUI_LIBS}
-  ${KDE4_KIO_LIBS}
-  ${KDE4_KFILE_LIBS}
-#   ${KDE4_KPARTS_LIBS}
-#   ${KDE4_KNEWSTUFF3_LIBS}
-#   ${KDE4_PHONON_LIBS}
-#   ${KDE4_SOLID_LIBS}
-#   ${KDE4_NEPOMUK_LIBS}
-#   ${SOPRANO_LIBRARIES}
+    KF5::Notifications
+    KF5::CoreAddons
+    KF5::KDELibs4Support
+    Qt5::Widgets
+    Qt5::Gui
+    Qt5::Core
 )
 
-install(TARGETS kaption ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS kaption DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES kaption.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 install(FILES kaption.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES data/kaption.notifyrc DESTINATION ${DATA_INSTALL_DIR}/kaption)
-
-macro_display_feature_log()
 
 

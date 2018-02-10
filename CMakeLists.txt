@@ -2,17 +2,22 @@ project(Kaption)
 
 cmake_minimum_required(VERSION 2.6.2)
 
-set(KDE_MIN_VERSION "4.4.0")
-find_package(Qt4 REQUIRED)
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
-include(MacroLibrary)
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+include(KDEInstallDirs)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(KDECMakeSettings)
+include(FeatureSummary)
+include(ECMInstallIcons)
 
-# Add the compiler flags
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+find_package(Qt5 REQUIRED Core Gui Widgets)
+find_package(KF5Notifications REQUIRED)
+find_package(KF5CoreAddons REQUIRED)
+find_package(KF5KDELibs4Support REQUIRED)
+
+set(CMAKE_AUTOUIC ON)
 
 add_subdirectory(src)
 add_subdirectory(po)
 
-macro_display_feature_log()
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

@@ -1,7 +1,7 @@
 #ifndef KaptionApplication_H
 #define KaptionApplication_H
 
-#include <KUniqueApplication>
+#include <QApplication>
 #include <QPointer>
 #include <QDebug>
 
@@ -10,12 +10,12 @@ class Grabber;
 class SnapshotPreview;
 class KActionCollection;
 
-class KaptionApplication : public KUniqueApplication
+class KaptionApplication : public QApplication
 {
     Q_OBJECT
 
 public:
-    KaptionApplication();
+    KaptionApplication(int& argc, char**&argv);
     virtual ~KaptionApplication();
 
     virtual int newInstance();

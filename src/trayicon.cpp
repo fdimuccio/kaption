@@ -22,15 +22,18 @@ TrayIcon::TrayIcon(QObject *parent)
     setToolTip("ksnapshot", "Kaption", i18n("Left click to start grabbing the screen"));
     setStandardActionsEnabled(false);
 
-    KMenu *menu = contextMenu();
+    QMenu *menu = contextMenu();
     menu->addAction(KStandardAction::open(kapp, SLOT(slotOpenImageFileBrowser()), this));
     menu->addSeparator();
     menu->addAction(KStandardAction::preferences(kapp, SLOT(slotConfigKaption()), this));
     menu->addAction(KStandardAction::keyBindings(kapp, SLOT(slotConfigShortcuts()), this));
     menu->addSeparator();
+    // PORTME
+    /*
     KHelpMenu *helpMenu = new KHelpMenu(menu, KGlobal::mainComponent().aboutData(), false);
     menu->addMenu(helpMenu->menu());
     menu->addSeparator();
+    */
     menu->addAction(KStandardAction::quit(this, SLOT(maybeQuit()), this));
 }
 

@@ -11,12 +11,14 @@
 
 #include "settings.h"
 
-SaveImageDirSelectDialog::SaveImageDirSelectDialog(const KUrl &startDir,
+SaveImageDirSelectDialog::SaveImageDirSelectDialog(const QUrl &startDir,
                                                    bool localOnly,
                                                    QWidget *parent)
     : KDirSelectDialog(startDir, localOnly, parent),
       m_dontAskMeAgainCheckBox(0L)
 {
+    // PORTME
+    /*
     QLayout *hlay = mainWidget()->layout();
 
     if (hlay && hlay->count() > 1) {
@@ -32,16 +34,17 @@ SaveImageDirSelectDialog::SaveImageDirSelectDialog(const KUrl &startDir,
             vlay->addWidget(m_dontAskMeAgainCheckBox);
         }
     }
+    */
 }
 
-KUrl SaveImageDirSelectDialog::selectDirectory(const KUrl &startDir,
+QUrl SaveImageDirSelectDialog::selectDirectory(const QUrl &startDir,
                                                bool localOnly,
                                                QWidget *parent,
                                                const QString &caption)
 {
     SaveImageDirSelectDialog dlg(startDir, localOnly, parent);
 
-    if (!caption.isNull()) dlg.setCaption(caption);
+    if (!caption.isNull()) dlg.setWindowTitle(caption);
 
     if (dlg.exec() == QDialog::Accepted) {
         if (dlg.dontAskMeAgain()) {
@@ -52,7 +55,7 @@ KUrl SaveImageDirSelectDialog::selectDirectory(const KUrl &startDir,
         }
         return KIO::NetAccess::mostLocalUrl(dlg.url(), parent);
     } else {
-        return KUrl();
+        return QUrl();
     }
 }
 

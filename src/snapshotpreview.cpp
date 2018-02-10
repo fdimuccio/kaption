@@ -2,14 +2,13 @@
 #include "ui_snapshotpreview.h"
 
 // Qt headers
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
 #include <QCloseEvent>
 #include <KImageIO>
 #include <QPointer>
 #include <KFileDialog>
-#include <KUrl>
 #include <KLocale>
 #include <kio/fileundomanager.h>
 #include <KIO/DeleteJob>
@@ -103,7 +102,7 @@ void SnapshotPreview::init()
 
     ui->cancelBtn->setIcon(iconLoader->loadIcon("dialog-cancel", KIconLoader::Small));
     ui->saveBtn->setIcon(iconLoader->loadIcon("document-save-as", KIconLoader::Small));
-    ui->uploadBtn->setIcon(KIcon("upload"));
+    ui->uploadBtn->setIcon(QIcon::fromTheme("upload"));
 
     m_toolkit = new KaptionGraphicsToolkit(ui->propertyToolbar, this);
 
@@ -143,7 +142,7 @@ void SnapshotPreview::setPixmap(const QPixmap &pixmap)
 //TODO: Needs refactoring!
 void SnapshotPreview::slotSaveAs()
 {
-    KUrl locationUrl;
+    QUrl locationUrl;
     if (!Settings::dontAskSaveLocation()) {
         QString startingUrl =  Settings::lastSaveLocationUrl();
         if (startingUrl.isEmpty()) startingUrl = QDir::homePath();
@@ -163,19 +162,19 @@ void SnapshotPreview::slotSaveAs()
                 text = i18n("No location has been choosen, check your settings.");
             } else {
                 text = i18n("Choosen location is invalid: <br>%1<br><i>Reason: <b>%2</b>.</i>",
-                            locationUrl.pathOrUrl(), locationUrl.errorString());
+                            locationUrl.toString(), locationUrl.errorString());
             }
             KMessageBox::error(this, text, caption);
             return;
         }
     }
 
-    KUrl url = locationUrl;
-    url.addPath(filenameFromLineEdit());
+    QUrl url = locationUrl;
+    url.setPath(filenameFromLineEdit());
 
     if (KIO::NetAccess::exists(url, KIO::NetAccess::DestinationSide, this)) {
         const QString title = i18n("File Exists");
-        const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.pathOrUrl());
+        const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.toString());
         if (KMessageBox::Continue != KMessageBox::warningContinueCancel(this, text, title, KGuiItem(i18n("Overwrite")))) {
             //delete dlg;
             return;
@@ -213,7 +212,7 @@ void SnapshotPreview::slotSaveAs()
     QApplication::restoreOverrideCursor();
     if (!ok) {
         const QString caption = i18n("Unable to Save Image");
-        const QString text = i18n("Kaption was unable to save the image to<br>%1<br><i>Reason: <b>%2</b>.</i>", url.pathOrUrl(), m_lastError);
+        const QString text = i18n("Kaption was unable to save the image to<br>%1<br><i>Reason: <b>%2</b>.</i>", url.toString(), m_lastError);
         KMessageBox::error(this, text, caption);
     } else {
         m_screenSaved = true;
@@ -224,7 +223,7 @@ void SnapshotPreview::slotSaveAs()
         notification->setTitle("Kaption");
         notification->setPixmap(m_lastGeneratedPixmap);
         notification->setText(i18n("Image saved successfully into %1",
-                                   locationUrl.pathOrUrl()));
+                                   locationUrl.toString()));
         notification->sendEvent();
     }
 
@@ -247,7 +246,8 @@ void SnapshotPreview::slotUpload()
                            "Do it now?");
         QString title = i18n("Missing connection configuration");
         if (KMessageBox::warningYesNo(this, txt, title) == KMessageBox::Yes) {
-            (static_cast<KaptionApplication*>(kapp))->slotConfigKaption("FtpConfig");
+            // PORTME
+            /* (static_cast<KaptionApplication*>(kapp))->slotConfigKaption("FtpConfig"); */
         }
     } else {
         // TODO: All this code should be placed in something like
@@ -256,12 +256,11 @@ void SnapshotPreview::slotUpload()
         m_tmpFile =  new KTemporaryFile;
         if (m_tmpFile->open()) {
             if (saveImage(m_tmpFile, qPrintable(QFileInfo(filename).suffix()))) {
-                KUrl url;
+                QUrl url;
                 url.setScheme(scheme);
                 url.setHost(server);
                 url.setPort(port);
-                url.setPath(directory+"/");
-                url.setFileName(filename);
+                url.setPath(directory + "/" + filename);
                 if (!username.isNull() && !password.isNull()) {
                     url.setUserName(username);
                     url.setPassword(password);
@@ -288,7 +287,7 @@ void SnapshotPreview::slotUpload()
                     connect(m_progressDialog, SIGNAL(cancelClicked()),
                             this, SLOT(slotCancelUpload()));
                 }
-                m_progressDialog->setLabelText(i18n("Uploading to %1", url.prettyUrl()));
+                m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
                 m_progressDialog->clearLogInfo();
                 m_progressDialog->setButtons(KDialog::Cancel);
                 m_progressDialog->progressBar()->setValue(0);
@@ -343,8 +342,8 @@ void SnapshotPreview::slotUploadResult(KJob *job)
         m_progressDialog->setButtons(KDialog::Close);
 
         // Delete remote partial file
-        KUrl partial = copyJob->destUrl();
-        partial.setFileName(partial.fileName()+".part");
+        QUrl partial = copyJob->destUrl();
+        partial.setPath(partial.path()+".part");
         KIO::del(partial, KIO::HideProgressInfo);
     } else {
         if (m_progressDialog->isVisible()) {
@@ -357,7 +356,7 @@ void SnapshotPreview::slotUploadResult(KJob *job)
         if (Settings::useClipboard() && !Settings::clipboardContents().isEmpty()) {
             QString clipboard = Settings::clipboardContents();
             clipboard.replace("%filename", copyJob->destUrl().fileName());
-            kapp->clipboard()->setText(clipboard);
+            QGuiApplication::clipboard()->setText(clipboard);
             if (clipboard.startsWith("http://", Qt::CaseInsensitive)) {
                 clipboard = QString("<a href=\"%1\">%1</a>").arg(clipboard);
             } else {

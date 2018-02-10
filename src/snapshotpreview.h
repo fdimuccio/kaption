@@ -20,7 +20,6 @@ class QByteArray;
 class QGraphicsView;
 class QGraphicsScene;
 class KJob;
-class KUrl;
 class KTemporaryFile;
 class UploadProgressDialog;
 class QLabel;

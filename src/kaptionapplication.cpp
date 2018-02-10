@@ -1,5 +1,6 @@
 #include "kaptionapplication.h"
 
+#include <QShortcut>
 #include <QSizePolicy>
 #include <QDebug>
 #include <QPixmap>
@@ -24,8 +25,8 @@
 #include "snapshotpreview.h"
 #include "settings/kaptionsettingsdialog.h"
 
-KaptionApplication::KaptionApplication()
-    : KUniqueApplication(true, true)
+KaptionApplication::KaptionApplication(int& argc, char**&argv)
+    : QApplication(argc, argv)
 {
     initGUI();
     setupActions();
@@ -60,7 +61,8 @@ void KaptionApplication::setupActions()
 
     KAction *capture = new KAction(i18n("Capture desktop"), m_actionCollection);
     m_actionCollection->addAction("capture", capture);
-    capture->setGlobalShortcut(KShortcut(Qt::META + Qt::Key_Print));
+    // PORTME
+    //capture->setGlobalShortcut(QShortcut(Qt::META + Qt::Key_Print));
     connect(capture, SIGNAL(triggered(bool)),
             this, SLOT(captureScreen()));
 }

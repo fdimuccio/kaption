@@ -3,6 +3,8 @@
 
 #include <KConfigDialog>
 
+class KConfigSkeleton;
+
 class KaptionSettingsDialog : public KConfigDialog
 {
     Q_OBJECT

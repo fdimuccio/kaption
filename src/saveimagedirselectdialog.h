@@ -10,11 +10,11 @@ class SaveImageDirSelectDialog : public KDirSelectDialog
     Q_OBJECT
 
 public:
-    SaveImageDirSelectDialog(const KUrl &startDir = KUrl(),
+    SaveImageDirSelectDialog(const QUrl &startDir = QUrl(),
                              bool localOnly = false,
                              QWidget *parent = 0L);
 
-    static KUrl selectDirectory(const KUrl &startDir = KUrl(),
+    static QUrl selectDirectory(const QUrl &startDir = QUrl(),
                                 bool localOnly = false,
                                 QWidget *parent = 0L,
                                 const QString &caption = QString());
