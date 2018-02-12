@@ -34,11 +34,16 @@ int main(int argc, char *argv[])
 
     KDBusService service(KDBusService::Unique);
 
-    QCommandLineParser parser;
-    // PORTME
-    //parser.addOption("capture", ki18n("Captures the desktop"));
-
     QApplication::setGraphicsSystem("native");
+
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addOption({"capture", i18n("Captures the desktop")});
+    parser.process(app);
+    if (parser.isSet("capture")) {
+        app.captureScreen();
+    }
 
     return app.exec();
 }

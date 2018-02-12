@@ -12,13 +12,13 @@
 #include <KHelpMenu>
 #include <QTimer>
 #include <QLayout>
-#include <KCmdLineArgs>
 #include <KAction>
 #include <KActionCollection>
 #include <KShortcutsDialog>
 #include <KFileDialog>
 #include <KMessageBox>
 #include <KImageIO>
+#include <KLocalizedString>
 #include "settings.h"
 #include "trayicon.h"
 #include "grabber.h"
@@ -39,19 +39,6 @@ KaptionApplication::~KaptionApplication()
         m_preview->deleteLater();
     }
     delete m_trayIcon;
-}
-
-int KaptionApplication::newInstance()
-{
-    KCmdLineArgs *const args = KCmdLineArgs::parsedArgs();
-
-    if (args->isSet("capture")) {
-        captureScreen();
-    }
-
-    args->clear();
-
-    return 0;
 }
 
 void KaptionApplication::setupActions()

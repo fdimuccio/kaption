@@ -18,18 +18,16 @@ public:
     KaptionApplication(int& argc, char**&argv);
     virtual ~KaptionApplication();
 
-    virtual int newInstance();
-
 public Q_SLOTS:
     void slotConfigKaption(const QString &page = QString());
     void slotConfigShortcuts();
     void slotOpenImageFileBrowser();
+    void captureScreen();
 
 private Q_SLOTS:
     void slotRegionGrabbed(const QPixmap &pixmap, const QPoint &topLeft);
     void slotQuitGrabber();
     void initObject();
-    void captureScreen();
 
 private:
     void setupActions();
