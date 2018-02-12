@@ -1,10 +1,12 @@
 #include "trayicon.h"
 
+#include <KAboutData>
 #include <KLocale>
 #include <KMenu>
 #include <QEvent>
 #include <QDebug>
 #include <QAction>
+#include <QTimer>
 #include <KAction>
 #include <KActionCollection>
 #include <KStandardAction>
@@ -22,21 +24,27 @@ TrayIcon::TrayIcon(QObject *parent)
     setToolTip("ksnapshot", "Kaption", i18n("Left click to start grabbing the screen"));
     setStandardActionsEnabled(false);
 
+    // Delay init so that KAboutData has been initialized
+    QTimer::singleShot(0, this, &TrayIcon::fillContextMenu);
+}
+
+TrayIcon::~TrayIcon()
+{
+}
+
+void TrayIcon::fillContextMenu()
+{
     QMenu *menu = contextMenu();
+
     menu->addAction(KStandardAction::open(kapp, SLOT(slotOpenImageFileBrowser()), this));
     menu->addSeparator();
     menu->addAction(KStandardAction::preferences(kapp, SLOT(slotConfigKaption()), this));
     menu->addAction(KStandardAction::keyBindings(kapp, SLOT(slotConfigShortcuts()), this));
     menu->addSeparator();
-    // PORTME
-    /*
-    KHelpMenu *helpMenu = new KHelpMenu(menu, KGlobal::mainComponent().aboutData(), false);
+
+    KHelpMenu *helpMenu = new KHelpMenu(menu, KAboutData::applicationData(), false);
     menu->addMenu(helpMenu->menu());
     menu->addSeparator();
-    */
-    menu->addAction(KStandardAction::quit(this, SLOT(maybeQuit()), this));
-}
 
-TrayIcon::~TrayIcon()
-{
+    menu->addAction(KStandardAction::quit(this, SLOT(maybeQuit()), this));
 }
