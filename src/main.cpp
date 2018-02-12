@@ -1,5 +1,6 @@
 // KDE
 #include <KAboutData>
+#include <KDBusService>
 #include <KLocale>
 #include <KStatusNotifierItem>
 
@@ -32,6 +33,8 @@ int main(int argc, char *argv[])
     // Must be changed with a proper icon
     aboutData.setProgramIconName("ksnapshot");
     */
+
+    KDBusService service(KDBusService::Unique);
 
     QCommandLineParser parser;
     // PORTME
