@@ -28,7 +28,6 @@ void GeneralSettingsPage::selectDefaultSaveLocationUrl()
     }
     QUrl url = KFileDialog::getExistingDirectoryUrl(defaultSaveLocationUrl, this);
     if (!url.isEmpty()) {
-        // PORTME
-        ui->kcfg_DefaultSaveLocationUrl->setText(url.url());
+        ui->kcfg_DefaultSaveLocationUrl->setText(url.toString());
     }
 }
