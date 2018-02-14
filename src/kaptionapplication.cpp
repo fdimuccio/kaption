@@ -7,6 +7,7 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QFile>
+#include <QImageReader>
 #include <KActionCollection>
 #include <KMenu>
 #include <KHelpMenu>
@@ -112,7 +113,10 @@ void KaptionApplication::slotConfigShortcuts()
 
 void KaptionApplication::slotOpenImageFileBrowser()
 {
-    QStringList mimetypes = KImageIO::mimeTypes(KImageIO::Reading);
+    QStringList mimetypes;
+    for (const QByteArray& mimetype : QImageReader::supportedMimeTypes()) {
+        mimetypes << QString::fromUtf8(mimetype);
+    }
     QString filename = KFileDialog::getOpenFileName(QDir::homePath(), mimetypes.join(" "));
 
     if (filename.isEmpty()) {
