@@ -12,8 +12,8 @@
 #include <KHelpMenu>
 #include <QTimer>
 #include <QLayout>
-#include <KAction>
 #include <KActionCollection>
+#include <KGlobalAccel>
 #include <KShortcutsDialog>
 #include <KFileDialog>
 #include <KMessageBox>
@@ -46,10 +46,10 @@ void KaptionApplication::setupActions()
     m_actionCollection = new KActionCollection(this);
     m_actionCollection->setObjectName("Kaption-KActionCollection");
 
-    KAction *capture = new KAction(i18n("Capture desktop"), m_actionCollection);
+    QAction *capture = new QAction(i18n("Capture desktop"), m_actionCollection);
+    capture->setObjectName("Kaption-captureDesktop");
     m_actionCollection->addAction("capture", capture);
-    // PORTME
-    //capture->setGlobalShortcut(QShortcut(Qt::META + Qt::Key_Print));
+    KGlobalAccel::self()->setGlobalShortcut(capture, Qt::META + Qt::Key_Print);
     connect(capture, SIGNAL(triggered(bool)),
             this, SLOT(captureScreen()));
 }

@@ -52,6 +52,7 @@ target_link_libraries(kaption
     KF5::Notifications
     KF5::CoreAddons
     KF5::DBusAddons
+    KF5::GlobalAccel
     KF5::KDELibs4Support
     Qt5::Widgets
     Qt5::Gui

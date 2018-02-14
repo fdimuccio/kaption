@@ -14,6 +14,7 @@ find_package(Qt5 REQUIRED Core Gui Widgets)
 find_package(KF5Notifications REQUIRED)
 find_package(KF5CoreAddons REQUIRED)
 find_package(KF5DBusAddons REQUIRED)
+find_package(KF5GlobalAccel REQUIRED)
 find_package(KF5KDELibs4Support REQUIRED)
 
 set(CMAKE_AUTOUIC ON)
