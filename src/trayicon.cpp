@@ -7,7 +7,6 @@
 #include <QDebug>
 #include <QAction>
 #include <QTimer>
-#include <KAction>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <QDebug>

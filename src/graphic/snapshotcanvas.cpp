@@ -15,7 +15,6 @@
 #include <QResizeEvent>
 #include <KMenu>
 #include <QAction>
-#include <KAction>
 #include <KLocale>
 
 #include "items/arrowgraphicsitem.h"
