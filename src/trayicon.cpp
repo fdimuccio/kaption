@@ -35,10 +35,10 @@ void TrayIcon::fillContextMenu()
 {
     QMenu *menu = contextMenu();
 
-    menu->addAction(KStandardAction::open(kapp, SLOT(slotOpenImageFileBrowser()), this));
+    menu->addAction(KStandardAction::open(qApp, SLOT(slotOpenImageFileBrowser()), this));
     menu->addSeparator();
-    menu->addAction(KStandardAction::preferences(kapp, SLOT(slotConfigKaption()), this));
-    menu->addAction(KStandardAction::keyBindings(kapp, SLOT(slotConfigShortcuts()), this));
+    menu->addAction(KStandardAction::preferences(qApp, SLOT(slotConfigKaption()), this));
+    menu->addAction(KStandardAction::keyBindings(qApp, SLOT(slotConfigShortcuts()), this));
     menu->addSeparator();
 
     KHelpMenu *helpMenu = new KHelpMenu(menu, KAboutData::applicationData(), false);
