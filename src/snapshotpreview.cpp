@@ -170,7 +170,7 @@ void SnapshotPreview::slotSaveAs()
     }
 
     QUrl url = locationUrl;
-    url.setPath(filenameFromLineEdit());
+    url.setPath(url.path() + '/' + filenameFromLineEdit());
 
     if (KIO::NetAccess::exists(url, KIO::NetAccess::DestinationSide, this)) {
         const QString title = i18n("File Exists");
