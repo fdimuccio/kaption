@@ -14,9 +14,6 @@ KaptionSettingsDialog::KaptionSettingsDialog(QWidget *parent,
                                              KConfigSkeleton *config)
     : KConfigDialog(parent, name, config)
 {
-    // PORTME
-    /* setButtons(Ok | Apply | Cancel); */
-
     addPage(new GeneralSettingsPage(this),
             i18n("General"),
             "system-run",
