@@ -2,10 +2,10 @@
 
 #include <KAboutData>
 #include <KLocale>
-#include <KMenu>
 #include <QEvent>
 #include <QDebug>
 #include <QAction>
+#include <QMenu>
 #include <QTimer>
 #include <KActionCollection>
 #include <KStandardAction>

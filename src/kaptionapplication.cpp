@@ -9,7 +9,6 @@
 #include <QFile>
 #include <QImageReader>
 #include <KActionCollection>
-#include <KMenu>
 #include <KHelpMenu>
 #include <QTimer>
 #include <QLayout>
