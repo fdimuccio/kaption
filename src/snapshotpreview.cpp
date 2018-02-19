@@ -8,7 +8,7 @@
 #include <QCloseEvent>
 #include <KImageIO>
 #include <QPointer>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KLocale>
 #include <kio/fileundomanager.h>
 #include <KIO/DeleteJob>
@@ -36,7 +36,6 @@
 #include <KIconLoader>
 #include <KFontDialog>
 #include <QRegExp>
-#include "saveimagedirselectdialog.h"
 #include "settings.h"
 #include "scale.h"
 #include "kaptionapplication.h"
@@ -146,9 +145,10 @@ void SnapshotPreview::slotSaveAs()
     if (!Settings::dontAskSaveLocation()) {
         QString startingUrl =  Settings::lastSaveLocationUrl();
         if (startingUrl.isEmpty()) startingUrl = QDir::homePath();
-        locationUrl = SaveImageDirSelectDialog::selectDirectory(startingUrl,
-                                                             false,
-                                                             this);
+        /* locationUrl = SaveImageDirSelectDialog::selectDirectory(startingUrl, */
+        /*                                                      false, */
+        /*                                                      this); */
+        locationUrl = QFileDialog::getExistingDirectoryUrl(this, QString(), startingUrl);
 
         // Action aborted by user
         if (locationUrl.isEmpty()) return;

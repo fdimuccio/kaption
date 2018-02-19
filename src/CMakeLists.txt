@@ -15,7 +15,6 @@ set(KAPTION_SRCS
     trayicon.cpp
     main.cpp
     kaptionapplication.cpp
-    saveimagedirselectdialog.cpp
     graphicsitemfactory.cpp
     kaptiongraphicstoolkit.cpp
     propertytooleditor.cpp
