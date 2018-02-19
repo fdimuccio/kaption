@@ -21,7 +21,7 @@
 #include <QFile>
 #include <QIODevice>
 #include <QImageWriter>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QPainter>
@@ -198,7 +198,7 @@ void SnapshotPreview::slotSaveAs()
             m_lastError = output.errorString();
         }
     } else {
-        KTemporaryFile tmpFile;
+        QTemporaryFile tmpFile;
         if (tmpFile.open()) {
             if (saveImage(&tmpFile, type)) {
                 ok = KIO::NetAccess::upload(tmpFile.fileName(), url, this);
@@ -252,7 +252,7 @@ void SnapshotPreview::slotUpload()
         // TODO: All this code should be placed in something like
         //       an upload service
         QString filename = filenameFromLineEdit();
-        m_tmpFile =  new KTemporaryFile;
+        m_tmpFile =  new QTemporaryFile;
         if (m_tmpFile->open()) {
             if (saveImage(m_tmpFile, qPrintable(QFileInfo(filename).suffix()))) {
                 QUrl url;

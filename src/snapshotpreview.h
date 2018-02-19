@@ -20,7 +20,7 @@ class QByteArray;
 class QGraphicsView;
 class QGraphicsScene;
 class KJob;
-class KTemporaryFile;
+class QTemporaryFile;
 class UploadProgressDialog;
 class QLabel;
 class ShapeWidth;
@@ -69,7 +69,7 @@ private:
 
     KIO::CopyJob *m_currentJob;
     UploadProgressDialog *m_progressDialog;
-    QPointer<KTemporaryFile> m_tmpFile;
+    QPointer<QTemporaryFile> m_tmpFile;
     Ui::SnapshotPreview *ui;
     KaptionGraphicsToolkit *m_toolkit;
     QString m_lastError;
