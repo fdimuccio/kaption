@@ -211,7 +211,7 @@ void SnapshotPreview::slotSaveAs()
     } else {
         m_screenSaved = true;
         Settings::setLastSaveLocationUrl(locationUrl.url());
-        Settings::self()->writeConfig();
+        Settings::self()->save();
 
         KNotification *notification = new KNotification("imagesaved", this);
         notification->setTitle("Kaption");
