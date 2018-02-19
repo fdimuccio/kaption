@@ -6,7 +6,6 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QCloseEvent>
-#include <KImageIO>
 #include <QPointer>
 #include <QFileDialog>
 #include <KLocale>
@@ -181,26 +180,21 @@ void SnapshotPreview::slotSaveAs()
         }
     }
 
-    QByteArray type = "PNG";
-    QString mime = KMimeType::findByUrl(url.fileName(), 0, url.isLocalFile(), true)->name();
-    const QStringList types = KImageIO::typeForMime(mime);
-    if (!types.isEmpty()) {
-        type = types.first().toLatin1();
-    }
+    QByteArray format = imageFormatFromComboBox();
 
     bool ok = false;
 
     if (url.isLocalFile()) {
         QFile output(url.toLocalFile());
         if (output.open(QFile::WriteOnly)) {
-            ok = saveImage(&output, type);
+            ok = saveImage(&output, format);
         } else {
             m_lastError = output.errorString();
         }
     } else {
         QTemporaryFile tmpFile;
         if (tmpFile.open()) {
-            if (saveImage(&tmpFile, type)) {
+            if (saveImage(&tmpFile, format)) {
                 ok = KIO::NetAccess::upload(tmpFile.fileName(), url, this);
                 if (!ok) m_lastError = KIO::NetAccess::lastErrorString();
             }
@@ -478,6 +472,11 @@ QString SnapshotPreview::filenameFromLineEdit()
         ui->filenameLineEdit->setText(filename);
     }
     return filename + "." + ui->formatCmbBox->currentText();
+}
+
+QByteArray SnapshotPreview::imageFormatFromComboBox() const
+{
+    return ui->formatCmbBox->currentText().toUpper().toUtf8();
 }
 
 QString SnapshotPreview::generateScreenFilename() const

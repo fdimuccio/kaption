@@ -64,6 +64,7 @@ private:
     bool saveImage(QIODevice *device, const QByteArray &format);
     void setToolbarsMaxSize();
     QString filenameFromLineEdit();
+    QByteArray imageFormatFromComboBox() const;
     QString generateScreenFilename() const;
     bool saveAndContinueAction(SaveAndContinueReason reason);
 
