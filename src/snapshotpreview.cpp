@@ -246,8 +246,7 @@ void SnapshotPreview::slotUpload()
                            "Do it now?");
         QString title = i18n("Missing connection configuration");
         if (KMessageBox::warningYesNo(this, txt, title) == KMessageBox::Yes) {
-            // PORTME
-            /* (static_cast<KaptionApplication*>(kapp))->slotConfigKaption("FtpConfig"); */
+            (static_cast<KaptionApplication*>(qApp))->slotConfigKaption("FtpConfig");
         }
     } else {
         // TODO: All this code should be placed in something like
