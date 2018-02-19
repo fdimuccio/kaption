@@ -18,7 +18,6 @@
 #include <KShortcutsDialog>
 #include <KFileDialog>
 #include <KMessageBox>
-#include <KImageIO>
 #include <KLocalizedString>
 #include "settings.h"
 #include "trayicon.h"
