@@ -25,14 +25,14 @@ static void lf_getTopLevelWindowsInfo(QLinkedList<KWindowInfo> &tlwInfo)
         if(!KWindowSystem::hasWId((*it))) {
             continue;
         }
-        KWindowInfo info = KWindowSystem::windowInfo(*it,
-                                                     NET::WMVisibleIconName |
-                                                     NET::WMFrameExtents |
-                                                     NET::WMState |
-                                                     NET::XAWMState |
-                                                     NET::WMGeometry |
-                                                     NET::WMName |
-                                                     NET::WMDesktop);
+        KWindowInfo info(*it,
+                         NET::WMVisibleIconName |
+                         NET::WMFrameExtents |
+                         NET::WMState |
+                         NET::XAWMState |
+                         NET::WMGeometry |
+                         NET::WMName |
+                         NET::WMDesktop);
         if (!info.isMinimized() && info.isOnCurrentDesktop()) {
             tlwInfo.append(info);
         }
