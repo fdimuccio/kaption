@@ -40,7 +40,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KLineEdit" name="kcfg_DefaultSaveLocationUrl">
+         <widget class="QLineEdit" name="kcfg_DefaultSaveLocationUrl">
           <property name="showClearButton" stdset="0">
            <bool>true</bool>
           </property>
@@ -69,13 +69,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

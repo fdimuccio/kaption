@@ -6,16 +6,16 @@
 #include <QPixmap>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QDir>
 #include <QFile>
+#include <QFileDialog>
 #include <QImageReader>
 #include <KActionCollection>
 #include <KHelpMenu>
 #include <QTimer>
 #include <QLayout>
-#include <KActionCollection>
 #include <KGlobalAccel>
 #include <KShortcutsDialog>
-#include <KFileDialog>
 #include <KMessageBox>
 #include <KLocalizedString>
 #include "settings.h"
@@ -115,11 +115,14 @@ void KaptionApplication::slotOpenImageFileBrowser()
     for (const QByteArray& mimetype : QImageReader::supportedMimeTypes()) {
         mimetypes << QString::fromUtf8(mimetype);
     }
-    QString filename = KFileDialog::getOpenFileName(QDir::homePath(), mimetypes.join(" "));
-
-    if (filename.isEmpty()) {
+    QFileDialog fileDialog;
+    fileDialog.setFileMode(QFileDialog::ExistingFile);
+    fileDialog.setMimeTypeFilters(mimetypes);
+    fileDialog.setDirectory(QDir::homePath());
+    if (!fileDialog.exec()) {
         return;
     }
+    QString filename = fileDialog.selectedFiles().first();
 
     QFile file(filename);
     QString errorString;

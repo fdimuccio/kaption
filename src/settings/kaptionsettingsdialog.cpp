@@ -1,7 +1,8 @@
 #include "kaptionsettingsdialog.h"
 
-#include <KLocale>
 #include <KConfigSkeleton>
+#include <KLocalizedString>
+
 #include <QDebug>
 
 #include "settings.h"

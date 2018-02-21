@@ -1,7 +1,7 @@
 #include "generalsettingspage.h"
 #include "ui_generalsettingspage.h"
 
-#include <KFileDialog>
+#include <QFileDialog>
 
 GeneralSettingsPage::GeneralSettingsPage(QWidget *parent)
     : QWidget(parent),
@@ -26,7 +26,7 @@ void GeneralSettingsPage::selectDefaultSaveLocationUrl()
     if (defaultSaveLocationUrl.isEmpty()) {
         defaultSaveLocationUrl = QDir::homePath();
     }
-    QUrl url = KFileDialog::getExistingDirectoryUrl(defaultSaveLocationUrl, this);
+    QUrl url = QFileDialog::getExistingDirectoryUrl(this, QString(), defaultSaveLocationUrl);
     if (!url.isEmpty()) {
         ui->kcfg_DefaultSaveLocationUrl->setText(url.toString());
     }

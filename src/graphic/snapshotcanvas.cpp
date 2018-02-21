@@ -15,7 +15,8 @@
 #include <QStyle>
 #include <QResizeEvent>
 #include <QAction>
-#include <KLocale>
+
+#include <KLocalizedString>
 
 #include "items/arrowgraphicsitem.h"
 #include "items/boxgraphicsitem.h"

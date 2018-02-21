@@ -4,7 +4,7 @@
 #include <QSpinBox>
 #include <QVBoxLayout>
 #include <QSignalMapper>
-#include <KLocale>
+#include <KLocalizedString>
 
 NumberSelector::NumberSelector(QWidget *parent)
     : QWidget(parent),

@@ -11,10 +11,11 @@
 #include <QDebug>
 #include <QPen>
 #include <QPushButton>
-#include <KLocale>
+
+#include <KIconEffect>
+#include <KLocalizedString>
 #include <KWindowSystem>
 #include <KWindowInfo>
-#include <KIconEffect>
 
 static void lf_getTopLevelWindowsInfo(QLinkedList<KWindowInfo> &tlwInfo)
 {

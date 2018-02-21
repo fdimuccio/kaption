@@ -1,18 +1,17 @@
 #include "trayicon.h"
 
 #include <KAboutData>
-#include <KLocale>
 #include <QEvent>
 #include <QDebug>
 #include <QAction>
 #include <QMenu>
 #include <QTimer>
+#include <QApplication>
 #include <KActionCollection>
 #include <KStandardAction>
 #include <QDebug>
-#include <KApplication>
 #include <KHelpMenu>
-#include <KGlobal>
+#include <KLocalizedString>
 
 TrayIcon::TrayIcon(QObject *parent)
     : KStatusNotifierItem(parent)

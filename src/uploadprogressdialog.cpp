@@ -1,17 +1,23 @@
 #include "uploadprogressdialog.h"
 
+#include <QIcon>
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
 UploadProgressDialog::UploadProgressDialog(QWidget *parent, const QString &caption,
-                                           const QString &text, Qt::WFlags flags) :
-    KProgressDialog(parent, caption, text, flags), m_logIconLabel(new QLabel(mainWidget())),
+                                           const QString &text) :
+    QProgressDialog(caption, text, 0, 100, parent)/*,
+    // PORTME
+    m_logIconLabel(new QLabel(mainWidget())),
     m_logTextLabel(new QLabel(mainWidget()))
+    */
 {
     setModal(true);
     setAutoClose(false);
     setAutoReset(false);
+    // PORTME
+    /*
     progressBar()->setMinimum(0);
     progressBar()->setMaximum(100);
 
@@ -23,6 +29,7 @@ UploadProgressDialog::UploadProgressDialog(QWidget *parent, const QString &capti
     if (layout) {
         layout->addLayout(logLayout);
     }
+    */
 }
 
 void UploadProgressDialog::clearLogInfo()

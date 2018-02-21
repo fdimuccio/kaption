@@ -1,17 +1,16 @@
 #ifndef UPLOADPROGRESSDIALOG_H
 #define UPLOADPROGRESSDIALOG_H
 
-#include <KProgressDialog>
+#include <QProgressDialog>
 
 class QLabel;
 
-class UploadProgressDialog : public KProgressDialog
+class UploadProgressDialog : public QProgressDialog
 {
 public:
     UploadProgressDialog(QWidget *parent = 0,
                          const QString &caption = QString(),
-                         const QString &text = QString(),
-                         Qt::WFlags flags = 0);
+                         const QString &text = QString());
 
     void clearLogInfo();
 

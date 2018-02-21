@@ -48,11 +48,16 @@ add_executable(kaption ${KAPTION_SRCS})
 
 # Link against the needed libraries
 target_link_libraries(kaption
-    KF5::Notifications
     KF5::CoreAddons
     KF5::DBusAddons
     KF5::GlobalAccel
-    KF5::KDELibs4Support
+    KF5::I18n
+    KF5::IconThemes
+    KF5::KIOCore
+    KF5::Notifications
+    KF5::WidgetsAddons
+    KF5::WindowSystem
+    KF5::XmlGui
     Qt5::Widgets
     Qt5::Gui
     Qt5::Core

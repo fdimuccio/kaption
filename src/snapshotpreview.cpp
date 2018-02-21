@@ -8,15 +8,8 @@
 #include <QCloseEvent>
 #include <QPointer>
 #include <QFileDialog>
-#include <KLocale>
-#include <kio/fileundomanager.h>
-#include <KIO/DeleteJob>
-#include <KIO/CopyJob>
-#include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
 #include <KMessageBox>
 #include <QByteArray>
-#include <KMimeType>
 #include <QFile>
 #include <QIODevice>
 #include <QImageWriter>
@@ -27,13 +20,12 @@
 #include <QSignalMapper>
 #include <KMessageBox>
 #include <QClipboard>
-#include <KProgressDialog>
 #include <QStyle>
 #include <QSizePolicy>
-#include <KPushButton>
 #include <KNotification>
-#include <KIconLoader>
-#include <KFontDialog>
+#include <KLocalizedString>
+#include <KIO/CopyJob>
+#include <KIO/DeleteJob>
 #include <QRegExp>
 #include "settings.h"
 #include "scale.h"
@@ -86,20 +78,16 @@ void SnapshotPreview::init()
     ui = new Ui::SnapshotPreview;
     ui->setupUi(this);
 
-    KIconLoader *iconLoader = KIconLoader::global();
+    ui->arrowBtn->setIcon(QIcon::fromTheme("toolbox_arrow"));
+    ui->boxBtn->setIcon(QIcon::fromTheme("toolbox_box"));
+    ui->ellipseBtn->setIcon(QIcon::fromTheme("toolbox_ellipse"));
+    ui->textBtn->setIcon(QIcon::fromTheme("toolbox_text"));
+    ui->numberedBtn->setIcon(QIcon::fromTheme("toolbox_number"));
 
-    //TODO: should use KIcon instead of KIconLoader?
-    //FIXME: if I use KIcon over here, the icons will be messed up when toggling between them
-    ui->arrowBtn->setIcon(iconLoader->loadIcon("toolbox_arrow", KIconLoader::Small));
-    ui->boxBtn->setIcon(iconLoader->loadIcon("toolbox_box", KIconLoader::Small));
-    ui->ellipseBtn->setIcon(iconLoader->loadIcon("toolbox_ellipse", KIconLoader::Small));
-    ui->textBtn->setIcon(iconLoader->loadIcon("toolbox_text", KIconLoader::Small));
-    ui->numberedBtn->setIcon(iconLoader->loadIcon("toolbox_number", KIconLoader::Small));
+    ui->formatTextBtn->setIcon(QIcon::fromTheme("draw-text"));
 
-    ui->formatTextBtn->setIcon(iconLoader->loadIcon("draw-text", KIconLoader::Small));
-
-    ui->cancelBtn->setIcon(iconLoader->loadIcon("dialog-cancel", KIconLoader::Small));
-    ui->saveBtn->setIcon(iconLoader->loadIcon("document-save-as", KIconLoader::Small));
+    ui->cancelBtn->setIcon(QIcon::fromTheme("dialog-cancel"));
+    ui->saveBtn->setIcon(QIcon::fromTheme("document-save-as"));
     ui->uploadBtn->setIcon(QIcon::fromTheme("upload"));
 
     m_toolkit = new KaptionGraphicsToolkit(ui->propertyToolbar, this);
@@ -171,6 +159,8 @@ void SnapshotPreview::slotSaveAs()
     QUrl url = locationUrl;
     url.setPath(url.path() + '/' + filenameFromLineEdit());
 
+    // PORTME
+    /*
     if (KIO::NetAccess::exists(url, KIO::NetAccess::DestinationSide, this)) {
         const QString title = i18n("File Exists");
         const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.toString());
@@ -179,6 +169,7 @@ void SnapshotPreview::slotSaveAs()
             return;
         }
     }
+    */
 
     QByteArray format = imageFormatFromComboBox();
 
@@ -195,8 +186,8 @@ void SnapshotPreview::slotSaveAs()
         QTemporaryFile tmpFile;
         if (tmpFile.open()) {
             if (saveImage(&tmpFile, format)) {
-                ok = KIO::NetAccess::upload(tmpFile.fileName(), url, this);
-                if (!ok) m_lastError = KIO::NetAccess::lastErrorString();
+                KJob *job = KIO::copy(QUrl::fromLocalFile(tmpFile.fileName()), url);
+                if (!job->exec()) m_lastError = job->errorString();
             }
         } else {
             m_lastError = tmpFile.errorString();
@@ -282,8 +273,11 @@ void SnapshotPreview::slotUpload()
                 }
                 m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
                 m_progressDialog->clearLogInfo();
-                m_progressDialog->setButtons(KDialog::Cancel);
+                // PORTME
+                /*
+                p_progressDialog->setButtons(KDialog::Cancel);
                 m_progressDialog->progressBar()->setValue(0);
+                */
                 m_progressDialog->show();
             } else {
                 const QString caption = i18n("Unable to Save Image");
@@ -303,7 +297,8 @@ void SnapshotPreview::slotPrintUploadInfo(KJob *job, const QString &plain)
 void SnapshotPreview::slotUploading(KJob *job, unsigned long percent)
 {
     Q_UNUSED(job)
-    m_progressDialog->progressBar()->setValue(percent);
+    // PORTME
+    //m_progressDialog->progressBar()->setValue(percent);
 }
 
 // TODO: Needs refactoring...it is horrible!
@@ -332,7 +327,8 @@ void SnapshotPreview::slotUploadResult(KJob *job)
 
         // Show error into the progress dialog
         m_progressDialog->setLogInfo(icon, text);
-        m_progressDialog->setButtons(KDialog::Close);
+        // PORTME
+        //m_progressDialog->setButtons(KDialog::Close);
 
         // Delete remote partial file
         QUrl partial = copyJob->destUrl();
@@ -341,7 +337,8 @@ void SnapshotPreview::slotUploadResult(KJob *job)
     } else {
         if (m_progressDialog->isVisible()) {
             // Set 100% progress, so it looks pretty
-            m_progressDialog->progressBar()->setValue(100);
+            // PORTME
+            // m_progressDialog->progressBar()->setValue(100);
             m_progressDialog->hide();
         }
 

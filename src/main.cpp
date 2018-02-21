@@ -1,7 +1,7 @@
 // KDE
 #include <KAboutData>
 #include <KDBusService>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KStatusNotifierItem>
 
 #include <QCommandLineParser>
@@ -33,8 +33,6 @@ int main(int argc, char *argv[])
     QApplication::setWindowIcon(QIcon::fromTheme("ksnapshot"));
 
     KDBusService service(KDBusService::Unique);
-
-    QApplication::setGraphicsSystem("native");
 
     QCommandLineParser parser;
     parser.addHelpOption();

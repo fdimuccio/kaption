@@ -11,11 +11,17 @@ include(FeatureSummary)
 include(ECMInstallIcons)
 
 find_package(Qt5 REQUIRED Core Gui Widgets)
-find_package(KF5Notifications REQUIRED)
+
 find_package(KF5CoreAddons REQUIRED)
 find_package(KF5DBusAddons REQUIRED)
 find_package(KF5GlobalAccel REQUIRED)
-find_package(KF5KDELibs4Support REQUIRED)
+find_package(KF5I18n REQUIRED)
+find_package(KF5IconThemes REQUIRED)
+find_package(KF5KIO REQUIRED)
+find_package(KF5Notifications REQUIRED)
+find_package(KF5WidgetsAddons REQUIRED)
+find_package(KF5WindowSystem REQUIRED)
+find_package(KF5XmlGui REQUIRED)
 
 set(CMAKE_AUTOUIC ON)
 
