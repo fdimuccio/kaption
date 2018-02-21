@@ -13,7 +13,7 @@ NumberPropertyToolEditor::NumberPropertyToolEditor(QObject *parent)
     connect(this, SIGNAL(valueSet(QVariant)),
             this, SLOT(setNumber(QVariant)));
 
-    m_ns->setNumber(1);
+    changeNumber(m_ns->number());
 }
 
 void NumberPropertyToolEditor::customEvent(QEvent *event)

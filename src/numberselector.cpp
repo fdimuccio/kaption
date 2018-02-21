@@ -16,7 +16,7 @@ NumberSelector::NumberSelector(QWidget *parent)
     m_spinBox->setFrame(false);
 
     connect(m_spinBox, SIGNAL(valueChanged(int)),
-            this, SLOT(setNumber(int)));
+            this, SIGNAL(numberChanged(int)));
 
     QVBoxLayout *layout = new QVBoxLayout();
     layout->addWidget(m_spinBox);
@@ -31,7 +31,7 @@ int NumberSelector::number() const
 
 void NumberSelector::setNumber(int val)
 {
-    emit numberChanged(m_spinBox->value());
+    m_spinBox->setValue(val);
 }
 
 void NumberSelector::increment()
