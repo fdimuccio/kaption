@@ -273,11 +273,8 @@ void SnapshotPreview::slotUpload()
                 }
                 m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
                 m_progressDialog->clearLogInfo();
-                // PORTME
-                /*
-                p_progressDialog->setButtons(KDialog::Cancel);
-                m_progressDialog->progressBar()->setValue(0);
-                */
+                m_progressDialog->setValue(0);
+                m_progressDialog->setButton(KStandardGuiItem::Cancel);
                 m_progressDialog->show();
             } else {
                 const QString caption = i18n("Unable to Save Image");
@@ -297,8 +294,7 @@ void SnapshotPreview::slotPrintUploadInfo(KJob *job, const QString &plain)
 void SnapshotPreview::slotUploading(KJob *job, unsigned long percent)
 {
     Q_UNUSED(job)
-    // PORTME
-    //m_progressDialog->progressBar()->setValue(percent);
+    m_progressDialog->setValue(percent);
 }
 
 // TODO: Needs refactoring...it is horrible!
@@ -327,8 +323,7 @@ void SnapshotPreview::slotUploadResult(KJob *job)
 
         // Show error into the progress dialog
         m_progressDialog->setLogInfo(icon, text);
-        // PORTME
-        //m_progressDialog->setButtons(KDialog::Close);
+        m_progressDialog->setButton(KStandardGuiItem::Close);
 
         // Delete remote partial file
         QUrl partial = copyJob->destUrl();
@@ -337,8 +332,7 @@ void SnapshotPreview::slotUploadResult(KJob *job)
     } else {
         if (m_progressDialog->isVisible()) {
             // Set 100% progress, so it looks pretty
-            // PORTME
-            // m_progressDialog->progressBar()->setValue(100);
+            m_progressDialog->setValue(100);
             m_progressDialog->hide();
         }
 
