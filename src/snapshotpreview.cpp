@@ -253,7 +253,7 @@ void SnapshotPreview::slotUpload()
                 m_tmpFile->setPermissions(QFile::ReadOwner | QFile::WriteOwner |
                                           QFile::ReadGroup | QFile::WriteGroup |
                                           QFile::ReadOther | QFile::WriteOther);
-                m_currentJob = KIO::copy(m_tmpFile->fileName(), url, KIO::HideProgressInfo);
+                m_currentJob = KIO::copy(QUrl::fromLocalFile(m_tmpFile->fileName()), url, KIO::HideProgressInfo);
                 m_currentJob->setUiDelegate(0);
                 connect(m_currentJob, SIGNAL(infoMessage(KJob*,QString)),
                         this, SLOT(slotPrintUploadInfo(KJob*,QString)));
