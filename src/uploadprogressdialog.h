@@ -13,9 +13,6 @@ public:
                          const QString &text = QString());
 
     void setButton(KStandardGuiItem::StandardItem item);
-    void clearLogInfo();
-
-    void setLogInfo(const QIcon &icon, const QString &text);
 
 private:
     QPushButton *m_button;

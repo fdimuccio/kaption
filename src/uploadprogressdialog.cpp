@@ -20,13 +20,3 @@ void UploadProgressDialog::setButton(KStandardGuiItem::StandardItem item)
 {
     KStandardGuiItem::assign(m_button, item);
 }
-
-void UploadProgressDialog::clearLogInfo()
-{
-    setLabelText(QString());
-}
-
-void UploadProgressDialog::setLogInfo(const QIcon &icon, const QString &text)
-{
-    setLabelText(text);
-}

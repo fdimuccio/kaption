@@ -272,7 +272,6 @@ void SnapshotPreview::slotUpload()
                             this, SLOT(slotCancelUpload()));
                 }
                 m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
-                m_progressDialog->clearLogInfo();
                 m_progressDialog->setValue(0);
                 m_progressDialog->setButton(KStandardGuiItem::Cancel);
                 m_progressDialog->show();
@@ -288,7 +287,7 @@ void SnapshotPreview::slotUpload()
 void SnapshotPreview::slotPrintUploadInfo(KJob *job, const QString &plain)
 {
     Q_UNUSED(job)
-    m_progressDialog->setLogInfo(QIcon::fromTheme("documentinfo"), plain);
+    m_progressDialog->setLabelText(plain);
 }
 
 void SnapshotPreview::slotUploading(KJob *job, unsigned long percent)
@@ -322,7 +321,7 @@ void SnapshotPreview::slotUploadResult(KJob *job)
         n_pixmap = icon.pixmap(64, 64);
 
         // Show error into the progress dialog
-        m_progressDialog->setLogInfo(icon, text);
+        m_progressDialog->setLabelText(text);
         m_progressDialog->setButton(KStandardGuiItem::Close);
 
         // Delete remote partial file
