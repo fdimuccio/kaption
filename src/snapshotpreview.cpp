@@ -268,7 +268,7 @@ void SnapshotPreview::slotUpload()
 
                 if (m_progressDialog == 0) {
                     m_progressDialog = new UploadProgressDialog(this, i18n("Upload progress"));
-                    connect(m_progressDialog, SIGNAL(cancelClicked()),
+                    connect(m_progressDialog, SIGNAL(canceled()),
                             this, SLOT(slotCancelUpload()));
                 }
                 m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
