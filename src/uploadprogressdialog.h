@@ -3,8 +3,6 @@
 
 #include <QProgressDialog>
 
-class QLabel;
-
 class UploadProgressDialog : public QProgressDialog
 {
 public:
@@ -15,10 +13,6 @@ public:
     void clearLogInfo();
 
     void setLogInfo(const QIcon &icon, const QString &text);
-
-private:
-    QLabel *m_logIconLabel;
-    QLabel *m_logTextLabel;
 };
 
 #endif // UPLOADPROGRESSDIALOG_H
