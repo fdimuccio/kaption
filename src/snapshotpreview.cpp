@@ -132,9 +132,6 @@ void SnapshotPreview::slotSaveAs()
     if (!Settings::dontAskSaveLocation()) {
         QString startingUrl =  Settings::lastSaveLocationUrl();
         if (startingUrl.isEmpty()) startingUrl = QDir::homePath();
-        /* locationUrl = SaveImageDirSelectDialog::selectDirectory(startingUrl, */
-        /*                                                      false, */
-        /*                                                      this); */
         locationUrl = QFileDialog::getExistingDirectoryUrl(this, QString(), startingUrl);
 
         // Action aborted by user
