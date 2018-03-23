@@ -197,7 +197,11 @@ void SnapshotPreview::slotSaveAs()
         if (tmpFile.open()) {
             if (saveImage(&tmpFile, format)) {
                 KJob *job = KIO::copy(QUrl::fromLocalFile(tmpFile.fileName()), url);
-                if (!job->exec()) m_lastError = job->errorString();
+                if (job->exec()) {
+                    ok = true;
+                } else {
+                    m_lastError = job->errorString();
+                }
             }
         } else {
             m_lastError = tmpFile.errorString();
