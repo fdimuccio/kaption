@@ -53,6 +53,7 @@ target_link_libraries(kaption
     KF5::GlobalAccel
     KF5::I18n
     KF5::IconThemes
+    KF5::JobWidgets
     KF5::KIOCore
     KF5::Notifications
     KF5::WidgetsAddons

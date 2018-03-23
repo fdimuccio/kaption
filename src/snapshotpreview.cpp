@@ -26,6 +26,8 @@
 #include <KLocalizedString>
 #include <KIO/CopyJob>
 #include <KIO/DeleteJob>
+#include <KIO/StatJob>
+#include <KJobWidgets>
 #include <QRegExp>
 #include "settings.h"
 #include "scale.h"
@@ -125,6 +127,20 @@ void SnapshotPreview::setPixmap(const QPixmap &pixmap)
     m_pixmapSet = true;
 }
 
+// Simplified copy of NetAccess::exists from KDELibs4Support
+static bool destinationExists(const QUrl &url, QWidget *window)
+{
+    if (url.isLocalFile()) {
+        return QFile::exists(url.toLocalFile());
+    }
+
+    KIO::JobFlags flags = url.isLocalFile() ? KIO::HideProgressInfo : KIO::DefaultFlags;
+    KIO::StatJob *job = KIO::stat(url, flags);
+    KJobWidgets::setWindow(job, window);
+    job->setSide(KIO::StatJob::DestinationSide);
+    return job->exec();
+}
+
 //TODO: Needs refactoring!
 void SnapshotPreview::slotSaveAs()
 {
@@ -156,9 +172,7 @@ void SnapshotPreview::slotSaveAs()
     QUrl url = locationUrl;
     url.setPath(url.path() + '/' + filenameFromLineEdit());
 
-    // PORTME
-    /*
-    if (KIO::NetAccess::exists(url, KIO::NetAccess::DestinationSide, this)) {
+    if (destinationExists(url, this)) {
         const QString title = i18n("File Exists");
         const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.toString());
         if (KMessageBox::Continue != KMessageBox::warningContinueCancel(this, text, title, KGuiItem(i18n("Overwrite")))) {
@@ -166,7 +180,6 @@ void SnapshotPreview::slotSaveAs()
             return;
         }
     }
-    */
 
     QByteArray format = imageFormatFromComboBox();
 
