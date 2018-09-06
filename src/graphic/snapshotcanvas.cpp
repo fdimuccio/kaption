@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QPixmap>
 #include <QPointF>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QList>
 #include <QSize>
@@ -13,10 +14,9 @@
 #include <QScrollBar>
 #include <QStyle>
 #include <QResizeEvent>
-#include <KMenu>
 #include <QAction>
-#include <KAction>
-#include <KLocale>
+
+#include <KLocalizedString>
 
 #include "items/arrowgraphicsitem.h"
 #include "items/boxgraphicsitem.h"
@@ -33,7 +33,7 @@ SnapshotCanvas::SnapshotCanvas(QWidget *parent)
       m_pixmapItem(0),
       m_captureKeyboardEvents(true),
       m_toolkit(0),
-      m_contextMenu(new KMenu(this))
+      m_contextMenu(new QMenu(this))
 {
     m_contextMenu->addAction(i18n("Move on top"), this, SLOT(moveSelectedItemOnTop()));
     m_contextMenu->addAction(i18n("Move on bottom"), this, SLOT(moveSelectedItemOnBottom()));

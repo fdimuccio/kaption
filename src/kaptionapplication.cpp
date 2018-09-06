@@ -1,31 +1,31 @@
 #include "kaptionapplication.h"
 
+#include <QShortcut>
 #include <QSizePolicy>
 #include <QDebug>
 #include <QPixmap>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QDir>
 #include <QFile>
+#include <QFileDialog>
+#include <QImageReader>
 #include <KActionCollection>
-#include <KMenu>
 #include <KHelpMenu>
 #include <QTimer>
 #include <QLayout>
-#include <KCmdLineArgs>
-#include <KAction>
-#include <KActionCollection>
+#include <KGlobalAccel>
 #include <KShortcutsDialog>
-#include <KFileDialog>
 #include <KMessageBox>
-#include <KImageIO>
+#include <KLocalizedString>
 #include "settings.h"
 #include "trayicon.h"
 #include "grabber.h"
 #include "snapshotpreview.h"
 #include "settings/kaptionsettingsdialog.h"
 
-KaptionApplication::KaptionApplication()
-    : KUniqueApplication(true, true)
+KaptionApplication::KaptionApplication(int& argc, char**&argv)
+    : QApplication(argc, argv)
 {
     initGUI();
     setupActions();
@@ -40,27 +40,15 @@ KaptionApplication::~KaptionApplication()
     delete m_trayIcon;
 }
 
-int KaptionApplication::newInstance()
-{
-    KCmdLineArgs *const args = KCmdLineArgs::parsedArgs();
-
-    if (args->isSet("capture")) {
-        captureScreen();
-    }
-
-    args->clear();
-
-    return 0;
-}
-
 void KaptionApplication::setupActions()
 {
     m_actionCollection = new KActionCollection(this);
     m_actionCollection->setObjectName("Kaption-KActionCollection");
 
-    KAction *capture = new KAction(i18n("Capture desktop"), m_actionCollection);
+    QAction *capture = new QAction(i18n("Capture desktop"), m_actionCollection);
+    capture->setObjectName("Kaption-captureDesktop");
     m_actionCollection->addAction("capture", capture);
-    capture->setGlobalShortcut(KShortcut(Qt::META + Qt::Key_Print));
+    KGlobalAccel::self()->setGlobalShortcut(capture, Qt::META + Qt::Key_Print);
     connect(capture, SIGNAL(triggered(bool)),
             this, SLOT(captureScreen()));
 }
@@ -123,12 +111,18 @@ void KaptionApplication::slotConfigShortcuts()
 
 void KaptionApplication::slotOpenImageFileBrowser()
 {
-    QStringList mimetypes = KImageIO::mimeTypes(KImageIO::Reading);
-    QString filename = KFileDialog::getOpenFileName(QDir::homePath(), mimetypes.join(" "));
-
-    if (filename.isEmpty()) {
+    QStringList mimetypes;
+    for (const QByteArray& mimetype : QImageReader::supportedMimeTypes()) {
+        mimetypes << QString::fromUtf8(mimetype);
+    }
+    QFileDialog fileDialog;
+    fileDialog.setFileMode(QFileDialog::ExistingFile);
+    fileDialog.setMimeTypeFilters(mimetypes);
+    fileDialog.setDirectory(QDir::homePath());
+    if (!fileDialog.exec()) {
         return;
     }
+    QString filename = fileDialog.selectedFiles().first();
 
     QFile file(filename);
     QString errorString;

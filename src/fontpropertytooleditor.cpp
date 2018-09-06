@@ -1,7 +1,7 @@
 #include "fontpropertytooleditor.h"
 
 #include <QPushButton>
-#include <KFontDialog>
+#include <QFontDialog>
 #include <QFont>
 
 FontPropertyToolEditor::FontPropertyToolEditor(QPushButton *bttn,
@@ -19,10 +19,9 @@ FontPropertyToolEditor::FontPropertyToolEditor(QPushButton *bttn,
 
 void FontPropertyToolEditor::changeFont()
 {
-    QFont font = value().value<QFont>();
-
-    int result = KFontDialog::getFont(font);
-    if (result == KFontDialog::Accepted) {
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok);
+    if (ok) {
         changeValue(QVariant::fromValue(font));
     }
 }
