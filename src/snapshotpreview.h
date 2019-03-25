@@ -21,8 +21,7 @@ class QByteArray;
 class QGraphicsView;
 class QGraphicsScene;
 class KJob;
-class KUrl;
-class KTemporaryFile;
+class QTemporaryFile;
 class UploadProgressDialog;
 class QLabel;
 class ShapeWidth;
@@ -67,12 +66,13 @@ private:
     bool saveImage(QIODevice *device, const QByteArray &format);
     void setToolbarsMaxSize();
     QString filenameFromLineEdit();
+    QByteArray imageFormatFromComboBox() const;
     QString generateScreenFilename() const;
     bool saveAndContinueAction(SaveAndContinueReason reason);
 
     KIO::CopyJob *m_currentJob;
     UploadProgressDialog *m_progressDialog;
-    QPointer<KTemporaryFile> m_tmpFile;
+    QPointer<QTemporaryFile> m_tmpFile;
     Ui::SnapshotPreview *ui;
     KaptionGraphicsToolkit *m_toolkit;
     QString m_lastError;

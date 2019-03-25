@@ -1,7 +1,7 @@
 #ifndef KaptionApplication_H
 #define KaptionApplication_H
 
-#include <KUniqueApplication>
+#include <QApplication>
 #include <QPointer>
 #include <QDebug>
 
@@ -10,26 +10,24 @@ class Grabber;
 class SnapshotPreview;
 class KActionCollection;
 
-class KaptionApplication : public KUniqueApplication
+class KaptionApplication : public QApplication
 {
     Q_OBJECT
 
 public:
-    KaptionApplication();
+    KaptionApplication(int& argc, char**&argv);
     virtual ~KaptionApplication();
-
-    virtual int newInstance();
 
 public Q_SLOTS:
     void slotConfigKaption(const QString &page = QString());
     void slotConfigShortcuts();
     void slotOpenImageFileBrowser();
+    void captureScreen();
 
 private Q_SLOTS:
     void slotRegionGrabbed(const QPixmap &pixmap, const QPoint &topLeft);
     void slotQuitGrabber();
     void initObject();
-    void captureScreen();
 
 private:
     void setupActions();

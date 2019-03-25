@@ -1,7 +1,8 @@
 #include "kaptionsettingsdialog.h"
 
-#include <KLocale>
 #include <KConfigSkeleton>
+#include <KLocalizedString>
+
 #include <QDebug>
 
 #include "settings.h"
@@ -14,8 +15,6 @@ KaptionSettingsDialog::KaptionSettingsDialog(QWidget *parent,
                                              KConfigSkeleton *config)
     : KConfigDialog(parent, name, config)
 {
-    setButtons(Ok | Apply | Cancel);
-
     addPage(new GeneralSettingsPage(this),
             i18n("General"),
             "system-run",

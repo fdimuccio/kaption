@@ -1,25 +1,21 @@
 #ifndef UPLOADPROGRESSDIALOG_H
 #define UPLOADPROGRESSDIALOG_H
 
-#include <KProgressDialog>
+#include <QProgressDialog>
 
-class QLabel;
+#include <KStandardGuiItem>
 
-class UploadProgressDialog : public KProgressDialog
+class UploadProgressDialog : public QProgressDialog
 {
 public:
     UploadProgressDialog(QWidget *parent = 0,
                          const QString &caption = QString(),
-                         const QString &text = QString(),
-                         Qt::WFlags flags = 0);
+                         const QString &text = QString());
 
-    void clearLogInfo();
-
-    void setLogInfo(const QIcon &icon, const QString &text);
+    void setButton(KStandardGuiItem::StandardItem item);
 
 private:
-    QLabel *m_logIconLabel;
-    QLabel *m_logTextLabel;
+    QPushButton *m_button;
 };
 
 #endif // UPLOADPROGRESSDIALOG_H

@@ -1,45 +1,47 @@
 // KDE
-#include <KCmdLineArgs>
-#include <KUniqueApplication>
 #include <KAboutData>
-#include <KLocale>
+#include <KDBusService>
+#include <KLocalizedString>
 #include <KStatusNotifierItem>
+
+#include <QCommandLineParser>
 #include <QDebug>
+#include <QIcon>
 
 #include "kaptionapplication.h"
 
 int main(int argc, char *argv[])
 {
-    KAboutData aboutData("kaption", // Internal use. DO NOT CHANGE!
-                         0,
-                         ki18n("Kaption"), // Displayable one (ie: program name)
-                         "0.1 beta",
-                         ki18n("Screenshot grabber and editor for KDE"),
-                         KAboutData::License_GPL_V2,
-                         ki18n("Copyright (C) 2011 Francesco Di Muccio"),
-                         ki18n("Kaption is a screenshot utility similar to Skitch or Jing"),
-                         "",
-                         "francesco.dimuccio@gmail.com");
+    KaptionApplication app(argc, argv);
 
-    aboutData.addAuthor(ki18n("Francesco Di Muccio"),
-                        ki18n("Author"),
+    KAboutData aboutData("kaption", // Internal use. DO NOT CHANGE!
+                         i18n("Kaption"), // Displayable one (ie: program name)
+                         "0.1 beta");
+    aboutData.setShortDescription(i18n("Screenshot grabber and editor for KDE"));
+    aboutData.setLicense(KAboutLicense::GPL_V2);
+    aboutData.setCopyrightStatement(i18n("Copyright (C) 2011 Francesco Di Muccio"));
+    aboutData.setOtherText(i18n("Kaption is a screenshot utility similar to Skitch or Jing"));
+    aboutData.setBugAddress("francesco.dimuccio@gmail.com");
+
+    aboutData.addAuthor(i18n("Francesco Di Muccio"),
+                        i18n("Author"),
                         "francesco.dimuccio@gmail.com");
 
+    KAboutData::setApplicationData(aboutData);
+
     // Must be changed with a proper icon
-    aboutData.setProgramIconName("ksnapshot");
+    QApplication::setWindowIcon(QIcon::fromTheme("ksnapshot"));
 
-    KCmdLineArgs::init(argc, argv, &aboutData);
+    KDBusService service(KDBusService::Unique);
 
-    KCmdLineOptions options;
-    options.add("capture", ki18n("Captures the desktop"));
-    KCmdLineArgs::addCmdLineOptions(options);
-
-    //KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-    QApplication::setGraphicsSystem("native");
-
-    KaptionApplication::addCmdLineOptions();
-    KaptionApplication app;
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.addOption({"capture", i18n("Captures the desktop")});
+    parser.process(app);
+    if (parser.isSet("capture")) {
+        app.captureScreen();
+    }
 
     return app.exec();
 }

@@ -11,10 +11,12 @@
 #include <QDebug>
 #include <QPen>
 #include <QPushButton>
-#include <KLocale>
+#include <QScreen>
+
+#include <KIconEffect>
+#include <KLocalizedString>
 #include <KWindowSystem>
 #include <KWindowInfo>
-#include <KIconEffect>
 
 static void lf_getTopLevelWindowsInfo(QLinkedList<KWindowInfo> &tlwInfo)
 {
@@ -25,14 +27,14 @@ static void lf_getTopLevelWindowsInfo(QLinkedList<KWindowInfo> &tlwInfo)
         if(!KWindowSystem::hasWId((*it))) {
             continue;
         }
-        KWindowInfo info = KWindowSystem::windowInfo(*it,
-                                                     NET::WMVisibleIconName |
-                                                     NET::WMFrameExtents |
-                                                     NET::WMState |
-                                                     NET::XAWMState |
-                                                     NET::WMGeometry |
-                                                     NET::WMName |
-                                                     NET::WMDesktop);
+        KWindowInfo info(*it,
+                         NET::WMVisibleIconName |
+                         NET::WMFrameExtents |
+                         NET::WMState |
+                         NET::XAWMState |
+                         NET::WMGeometry |
+                         NET::WMName |
+                         NET::WMDesktop);
         if (!info.isMinimized() && info.isOnCurrentDesktop()) {
             tlwInfo.append(info);
         }
@@ -63,7 +65,8 @@ void Grabber::init()
     lf_getTopLevelWindowsInfo(m_tlwInfo);
 
     m_shooting = true;
-    m_pixmap = QPixmap::grabWindow(QApplication::desktop()->winId());
+    QScreen *screen = qGuiApp->primaryScreen();
+    m_pixmap = screen->grabWindow(QApplication::desktop()->winId());
     QImage bw = m_pixmap.toImage();
     KIconEffect::toGray(bw, 1);
     m_bwPixmap = QPixmap::fromImage(bw);
@@ -155,7 +158,8 @@ void Grabber::grabRect()
 
 void Grabber::grabWindow()
 {
-    QPixmap p = QPixmap::grabWindow(QApplication::desktop()->winId());
+    QScreen *screen = qGuiApp->primaryScreen();
+    QPixmap p = screen->grabWindow(QApplication::desktop()->winId());
     Q_EMIT regionGrabbed(p.copy(m_windowSelection), m_windowSelection.topLeft());
 }
 

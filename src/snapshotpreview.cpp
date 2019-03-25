@@ -2,42 +2,33 @@
 #include "ui_snapshotpreview.h"
 
 // Qt headers
-#include <QtGui/QWidget>
+#include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
 #include <QCloseEvent>
-#include <KImageIO>
 #include <QPointer>
-#include <KFileDialog>
-#include <KUrl>
-#include <KLocale>
-#include <kio/fileundomanager.h>
-#include <KIO/DeleteJob>
-#include <KIO/CopyJob>
-#include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
+#include <QFileDialog>
 #include <KMessageBox>
 #include <QByteArray>
-#include <KMimeType>
 #include <QFile>
 #include <QIODevice>
 #include <QImageWriter>
-#include <KTemporaryFile>
+#include <QTemporaryFile>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QPainter>
 #include <QSignalMapper>
 #include <KMessageBox>
 #include <QClipboard>
-#include <KProgressDialog>
 #include <QStyle>
 #include <QSizePolicy>
-#include <KPushButton>
 #include <KNotification>
-#include <KIconLoader>
-#include <KFontDialog>
+#include <KLocalizedString>
+#include <KIO/CopyJob>
+#include <KIO/DeleteJob>
+#include <KIO/StatJob>
+#include <KJobWidgets>
 #include <QRegExp>
-#include "saveimagedirselectdialog.h"
 #include "settings.h"
 #include "scale.h"
 #include "kaptionapplication.h"
@@ -90,22 +81,18 @@ void SnapshotPreview::init()
     ui = new Ui::SnapshotPreview;
     ui->setupUi(this);
 
-    KIconLoader *iconLoader = KIconLoader::global();
+    ui->arrowBtn->setIcon(QIcon::fromTheme("toolbox_arrow"));
+    ui->boxBtn->setIcon(QIcon::fromTheme("toolbox_box"));
+    ui->ellipseBtn->setIcon(QIcon::fromTheme("toolbox_ellipse"));
+    ui->textBtn->setIcon(QIcon::fromTheme("toolbox_text"));
+    ui->numberedBtn->setIcon(QIcon::fromTheme("toolbox_number"));
 
-    //TODO: should use KIcon instead of KIconLoader?
-    //FIXME: if I use KIcon over here, the icons will be messed up when toggling between them
-    ui->arrowBtn->setIcon(iconLoader->loadIcon("toolbox_arrow", KIconLoader::Small));
-    ui->boxBtn->setIcon(iconLoader->loadIcon("toolbox_box", KIconLoader::Small));
-    ui->ellipseBtn->setIcon(iconLoader->loadIcon("toolbox_ellipse", KIconLoader::Small));
-    ui->textBtn->setIcon(iconLoader->loadIcon("toolbox_text", KIconLoader::Small));
-    ui->numberedBtn->setIcon(iconLoader->loadIcon("toolbox_number", KIconLoader::Small));
+    ui->formatTextBtn->setIcon(QIcon::fromTheme("draw-text"));
 
-    ui->formatTextBtn->setIcon(iconLoader->loadIcon("draw-text", KIconLoader::Small));
-
-    ui->cancelBtn->setIcon(iconLoader->loadIcon("dialog-cancel", KIconLoader::Small));
-    ui->copyBtn->setIcon(iconLoader->loadIcon("edit-copy", KIconLoader::Small));
-    ui->saveBtn->setIcon(iconLoader->loadIcon("document-save-as", KIconLoader::Small));
-    ui->uploadBtn->setIcon(KIcon("upload"));
+    ui->cancelBtn->setIcon(QIcon::fromTheme("dialog-cancel"));
+    ui->saveBtn->setIcon(QIcon::fromTheme("document-save-as"));
+    ui->copyBtn->setIcon(QIcon::fromTheme("edit-copy"));
+    ui->uploadBtn->setIcon(QIcon::fromTheme("upload"));
 
     m_toolkit = new KaptionGraphicsToolkit(ui->propertyToolbar, this);
 
@@ -144,16 +131,28 @@ void SnapshotPreview::setPixmap(const QPixmap &pixmap)
     m_pixmapSet = true;
 }
 
+// Simplified copy of NetAccess::exists from KDELibs4Support
+static bool destinationExists(const QUrl &url, QWidget *window)
+{
+    if (url.isLocalFile()) {
+        return QFile::exists(url.toLocalFile());
+    }
+
+    KIO::JobFlags flags = url.isLocalFile() ? KIO::HideProgressInfo : KIO::DefaultFlags;
+    KIO::StatJob *job = KIO::stat(url, flags);
+    KJobWidgets::setWindow(job, window);
+    job->setSide(KIO::StatJob::DestinationSide);
+    return job->exec();
+}
+
 //TODO: Needs refactoring!
 void SnapshotPreview::slotSaveAs()
 {
-    KUrl locationUrl;
+    QUrl locationUrl;
     if (!Settings::dontAskSaveLocation()) {
         QString startingUrl =  Settings::lastSaveLocationUrl();
         if (startingUrl.isEmpty()) startingUrl = QDir::homePath();
-        locationUrl = SaveImageDirSelectDialog::selectDirectory(startingUrl,
-                                                             false,
-                                                             this);
+        locationUrl = QFileDialog::getExistingDirectoryUrl(this, QString(), startingUrl);
 
         // Action aborted by user
         if (locationUrl.isEmpty()) return;
@@ -167,47 +166,46 @@ void SnapshotPreview::slotSaveAs()
                 text = i18n("No location has been choosen, check your settings.");
             } else {
                 text = i18n("Choosen location is invalid: <br>%1<br><i>Reason: <b>%2</b>.</i>",
-                            locationUrl.pathOrUrl(), locationUrl.errorString());
+                            locationUrl.toString(), locationUrl.errorString());
             }
             KMessageBox::error(this, text, caption);
             return;
         }
     }
 
-    KUrl url = locationUrl;
-    url.addPath(filenameFromLineEdit());
+    QUrl url = locationUrl;
+    url.setPath(url.path() + '/' + filenameFromLineEdit());
 
-    if (KIO::NetAccess::exists(url, KIO::NetAccess::DestinationSide, this)) {
+    if (destinationExists(url, this)) {
         const QString title = i18n("File Exists");
-        const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.pathOrUrl());
+        const QString text = i18n("<qt>Do you really want to overwrite <b>%1</b>?</qt>", url.toString());
         if (KMessageBox::Continue != KMessageBox::warningContinueCancel(this, text, title, KGuiItem(i18n("Overwrite")))) {
             //delete dlg;
             return;
         }
     }
 
-    QByteArray type = "PNG";
-    QString mime = KMimeType::findByUrl(url.fileName(), 0, url.isLocalFile(), true)->name();
-    const QStringList types = KImageIO::typeForMime(mime);
-    if (!types.isEmpty()) {
-        type = types.first().toLatin1();
-    }
+    QByteArray format = imageFormatFromComboBox();
 
     bool ok = false;
 
     if (url.isLocalFile()) {
         QFile output(url.toLocalFile());
         if (output.open(QFile::WriteOnly)) {
-            ok = saveImage(&output, type);
+            ok = saveImage(&output, format);
         } else {
             m_lastError = output.errorString();
         }
     } else {
-        KTemporaryFile tmpFile;
+        QTemporaryFile tmpFile;
         if (tmpFile.open()) {
-            if (saveImage(&tmpFile, type)) {
-                ok = KIO::NetAccess::upload(tmpFile.fileName(), url, this);
-                if (!ok) m_lastError = KIO::NetAccess::lastErrorString();
+            if (saveImage(&tmpFile, format)) {
+                KJob *job = KIO::copy(QUrl::fromLocalFile(tmpFile.fileName()), url);
+                if (job->exec()) {
+                    ok = true;
+                } else {
+                    m_lastError = job->errorString();
+                }
             }
         } else {
             m_lastError = tmpFile.errorString();
@@ -217,18 +215,18 @@ void SnapshotPreview::slotSaveAs()
     QApplication::restoreOverrideCursor();
     if (!ok) {
         const QString caption = i18n("Unable to Save Image");
-        const QString text = i18n("Kaption was unable to save the image to<br>%1<br><i>Reason: <b>%2</b>.</i>", url.pathOrUrl(), m_lastError);
+        const QString text = i18n("Kaption was unable to save the image to<br>%1<br><i>Reason: <b>%2</b>.</i>", url.toString(), m_lastError);
         KMessageBox::error(this, text, caption);
     } else {
         m_screenSaved = true;
         Settings::setLastSaveLocationUrl(locationUrl.url());
-        Settings::self()->writeConfig();
+        Settings::self()->save();
 
         KNotification *notification = new KNotification("imagesaved", this);
         notification->setTitle("Kaption");
         notification->setPixmap(m_lastGeneratedPixmap);
         notification->setText(i18n("Image saved successfully into %1",
-                                   locationUrl.pathOrUrl()));
+                                   locationUrl.toString()));
         notification->sendEvent();
     }
 
@@ -251,21 +249,20 @@ void SnapshotPreview::slotUpload()
                            "Do it now?");
         QString title = i18n("Missing connection configuration");
         if (KMessageBox::warningYesNo(this, txt, title) == KMessageBox::Yes) {
-            (static_cast<KaptionApplication*>(kapp))->slotConfigKaption("FtpConfig");
+            (static_cast<KaptionApplication*>(qApp))->slotConfigKaption("FtpConfig");
         }
     } else {
         // TODO: All this code should be placed in something like
         //       an upload service
         QString filename = filenameFromLineEdit();
-        m_tmpFile =  new KTemporaryFile;
+        m_tmpFile =  new QTemporaryFile;
         if (m_tmpFile->open()) {
             if (saveImage(m_tmpFile, qPrintable(QFileInfo(filename).suffix()))) {
-                KUrl url;
+                QUrl url;
                 url.setScheme(scheme);
                 url.setHost(server);
                 url.setPort(port);
-                url.setPath(directory+"/");
-                url.setFileName(filename);
+                url.setPath(directory + "/" + filename);
                 if (!username.isNull() && !password.isNull()) {
                     url.setUserName(username);
                     url.setPassword(password);
@@ -274,7 +271,7 @@ void SnapshotPreview::slotUpload()
                 m_tmpFile->setPermissions(QFile::ReadOwner | QFile::WriteOwner |
                                           QFile::ReadGroup | QFile::WriteGroup |
                                           QFile::ReadOther | QFile::WriteOther);
-                m_currentJob = KIO::copy(m_tmpFile->fileName(), url, KIO::HideProgressInfo);
+                m_currentJob = KIO::copy(QUrl::fromLocalFile(m_tmpFile->fileName()), url, KIO::HideProgressInfo);
                 m_currentJob->setUiDelegate(0);
                 connect(m_currentJob, SIGNAL(infoMessage(KJob*,QString)),
                         this, SLOT(slotPrintUploadInfo(KJob*,QString)));
@@ -289,13 +286,12 @@ void SnapshotPreview::slotUpload()
 
                 if (m_progressDialog == 0) {
                     m_progressDialog = new UploadProgressDialog(this, i18n("Upload progress"));
-                    connect(m_progressDialog, SIGNAL(cancelClicked()),
+                    connect(m_progressDialog, SIGNAL(canceled()),
                             this, SLOT(slotCancelUpload()));
                 }
-                m_progressDialog->setLabelText(i18n("Uploading to %1", url.prettyUrl()));
-                m_progressDialog->clearLogInfo();
-                m_progressDialog->setButtons(KDialog::Cancel);
-                m_progressDialog->progressBar()->setValue(0);
+                m_progressDialog->setLabelText(i18n("Uploading to %1", url.toString()));
+                m_progressDialog->setValue(0);
+                m_progressDialog->setButton(KStandardGuiItem::Cancel);
                 m_progressDialog->show();
             } else {
                 const QString caption = i18n("Unable to Save Image");
@@ -316,13 +312,13 @@ void SnapshotPreview::slotCopy()
 void SnapshotPreview::slotPrintUploadInfo(KJob *job, const QString &plain)
 {
     Q_UNUSED(job)
-    m_progressDialog->setLogInfo(QIcon::fromTheme("documentinfo"), plain);
+    m_progressDialog->setLabelText(plain);
 }
 
 void SnapshotPreview::slotUploading(KJob *job, unsigned long percent)
 {
     Q_UNUSED(job)
-    m_progressDialog->progressBar()->setValue(percent);
+    m_progressDialog->setValue(percent);
 }
 
 // TODO: Needs refactoring...it is horrible!
@@ -350,17 +346,17 @@ void SnapshotPreview::slotUploadResult(KJob *job)
         n_pixmap = icon.pixmap(64, 64);
 
         // Show error into the progress dialog
-        m_progressDialog->setLogInfo(icon, text);
-        m_progressDialog->setButtons(KDialog::Close);
+        m_progressDialog->setLabelText(text);
+        m_progressDialog->setButton(KStandardGuiItem::Close);
 
         // Delete remote partial file
-        KUrl partial = copyJob->destUrl();
-        partial.setFileName(partial.fileName()+".part");
+        QUrl partial = copyJob->destUrl();
+        partial.setPath(partial.path()+".part");
         KIO::del(partial, KIO::HideProgressInfo);
     } else {
         if (m_progressDialog->isVisible()) {
             // Set 100% progress, so it looks pretty
-            m_progressDialog->progressBar()->setValue(100);
+            m_progressDialog->setValue(100);
             m_progressDialog->hide();
         }
 
@@ -368,7 +364,7 @@ void SnapshotPreview::slotUploadResult(KJob *job)
         if (Settings::useClipboard() && !Settings::clipboardContents().isEmpty()) {
             QString clipboard = Settings::clipboardContents();
             clipboard.replace("%filename", copyJob->destUrl().fileName());
-            kapp->clipboard()->setText(clipboard);
+            QGuiApplication::clipboard()->setText(clipboard);
             if (clipboard.startsWith("http://", Qt::CaseInsensitive)) {
                 clipboard = QString("<a href=\"%1\">%1</a>").arg(clipboard);
             } else {
@@ -491,6 +487,11 @@ QString SnapshotPreview::filenameFromLineEdit()
         ui->filenameLineEdit->setText(filename);
     }
     return filename + "." + ui->formatCmbBox->currentText();
+}
+
+QByteArray SnapshotPreview::imageFormatFromComboBox() const
+{
+    return ui->formatCmbBox->currentText().toUpper().toUtf8();
 }
 
 QString SnapshotPreview::generateScreenFilename() const

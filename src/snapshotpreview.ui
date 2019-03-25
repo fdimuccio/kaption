@@ -216,7 +216,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KLineEdit" name="filenameLineEdit">
+         <widget class="QLineEdit" name="filenameLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -419,11 +419,6 @@
    <class>KColorButton</class>
    <extends>QPushButton</extends>
    <header>kcolorbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
   </customwidget>
   <customwidget>
    <class>SnapshotCanvas</class>

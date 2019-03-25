@@ -13,7 +13,6 @@ class QPointF;
 class QSize;
 class QGraphicsDropShadowEffect;
 class KaptionShape;
-class KMenu;
 
 class SnapshotCanvas : public QGraphicsView
 {
@@ -63,7 +62,7 @@ private:
     QList<KaptionGraphicsItem*> m_itemsClipboard;
     bool m_captureKeyboardEvents;
     KaptionGraphicsToolkit *m_toolkit;
-    KMenu *m_contextMenu;
+    QMenu *m_contextMenu;
     QLinkedList<QGraphicsItem*> m_zIndexList;
 };
 

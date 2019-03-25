@@ -13,6 +13,8 @@ public:
     explicit TrayIcon(QObject *parent=0);
     virtual ~TrayIcon();
 
+private:
+    void fillContextMenu();
 };
 
 #endif // TRAYICON_H

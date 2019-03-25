@@ -1,7 +1,7 @@
 #include "generalsettingspage.h"
 #include "ui_generalsettingspage.h"
 
-#include <KFileDialog>
+#include <QFileDialog>
 
 GeneralSettingsPage::GeneralSettingsPage(QWidget *parent)
     : QWidget(parent),
@@ -9,7 +9,7 @@ GeneralSettingsPage::GeneralSettingsPage(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->selectDefaultSaveLocationButton->setIcon(KIcon("folder-open"));
+    ui->selectDefaultSaveLocationButton->setIcon(QIcon::fromTheme("folder-open"));
 
     connect(ui->selectDefaultSaveLocationButton, SIGNAL(clicked()),
             this, SLOT(selectDefaultSaveLocationUrl()));
@@ -26,8 +26,8 @@ void GeneralSettingsPage::selectDefaultSaveLocationUrl()
     if (defaultSaveLocationUrl.isEmpty()) {
         defaultSaveLocationUrl = QDir::homePath();
     }
-    KUrl url = KFileDialog::getExistingDirectoryUrl(defaultSaveLocationUrl, this);
+    QUrl url = QFileDialog::getExistingDirectoryUrl(this, QString(), defaultSaveLocationUrl);
     if (!url.isEmpty()) {
-        ui->kcfg_DefaultSaveLocationUrl->setText(url.prettyUrl());
+        ui->kcfg_DefaultSaveLocationUrl->setText(url.toString());
     }
 }
