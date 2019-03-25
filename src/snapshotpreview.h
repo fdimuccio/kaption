@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QFrame>
 #include <QPointer>
+#include <QClipboard>
 
 namespace Ui {
     class SnapshotPreview;
@@ -51,6 +52,7 @@ private Q_SLOTS:
     void slotUploadResult(KJob *job);
     void slotPrintUploadInfo(KJob *job, const QString &plain);
     void slotCancelUpload();
+    void slotCopy();
     void slotSaveAs();
 
 private:
@@ -77,6 +79,7 @@ private:
     QPixmap m_lastGeneratedPixmap;
     bool m_screenSaved;
     bool m_pixmapSet;
+    QClipboard *m_clipboard;
 };
 
 #endif  //  SNAPSHOTPREVIEW_H

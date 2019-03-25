@@ -265,6 +265,13 @@
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="copyBtn">
+          <property name="text">
+           <string>Copy</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="uploadBtn">
           <property name="text">
            <string>Upload</string>
